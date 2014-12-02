@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:amq="http://activemq.apache.org/schema/core"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		                  http://www.springframework.org/schema/jms 
+                           http://www.springframework.org/schema/jms/spring-jms.xsd
+                           http://activemq.apache.org/schema/core 
+                           http://activemq.apache.org/schema/core/activemq-core.xsd">
+
+
+
+	<!-- a pooling based JMS provider -->
+	<beans:bean id="jmsFactory"
+		class="org.apache.activemq.pool.PooledConnectionFactory"
+		destroy-method="stop">
+		<beans:property name="connectionFactory">
+			<beans:bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<beans:property name="brokerURL" value="tcp://localhost:61616" />
+			</beans:bean>
+		</beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
+		<beans:constructor-arg value="TestQ" />
+	</beans:bean>
+
+	<!-- Spring JMS Template -->
+	<beans:bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<beans:property name="connectionFactory" ref="jmsFactory" />
+		<beans:property name="defaultDestination" ref="destination" />
+	</beans:bean>
+
+	<beans:bean id="messageSender" class="com.plm.conn.jms.senders.MessageSender">
+		<beans:property name="jmsTemplate" ref="jmsTemplate" />
+	</beans:bean>
+	
+	<beans:bean id="messageListener" class="com.plm.conn.jms.receivers.MessageReceiver">
+		<beans:property name="jmsTemplate" ref="jmsTemplate" />
+	</beans:bean>
+	
+	<!-- and this is the message listener container -->
+<beans:bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <beans:property name="connectionFactory" ref="jmsFactory"/>
+    <beans:property name="destination" ref="destination"/>
+    <beans:property name="messageListener" ref="messageListener" />
+    <beans:property name="sessionTransacted" value="true"/>
+</beans:bean>
+
+	<beans:bean id="applicationContextProvider" class="com.plm.conn.jms.ApplicationContextProvider" />
+
+	<!-- DispatcherServlet Context: defines this servlets request-processing 
+		infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven/>
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix"
+			value="/WEB-INF/netsources/jsp/views/home/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.plm.conn.controller" />
+
+
+
+
+
+</beans:beans>
