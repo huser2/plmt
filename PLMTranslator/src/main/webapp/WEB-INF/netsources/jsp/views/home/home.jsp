@@ -17,23 +17,27 @@
 				<li><a id="homeMySettings" href="home?mySettings"
 					onclick="processRequest(this);return false;">My Settings</a></li>
 			</ul></li>
-		<li><a href="mdm">Multi Data Migrator</a>
+		<!--  li><a href="mdm">Multi Data Migrator</a>
 			<ul>
 				<li><a href="mdm?properties">Properties</a></li>
 				<li><a href="mdm?appConnector">Application Connector</a></li>
 				<li><a href="mdm?export">Export Settings</a></li>
-			</ul></li>
+			</ul></li -->
 		<li><a href="odt">Online Data Transfer</a>
 			<ul>
 				<li><a href="odt?queues">Queues</a></li>
 				<li><a href="odt?completedJobs">Completed Jobs</a></li>
 			</ul></li>
-		<li><a href="settings">Settings</a></li>
+
 		<li><a href="qManagement">Queue Management</a>
 			<ul>
-				<li><a id="qmanager/queues" href="qmanager?queues" onclick="processRequest(this);return false;">Queues</a></li>
-				<li><a id="qmanager/topics" href="qmanager?topics" onclick="processRequest(this);return false;">Topics</a></li>
+				<li><a id="qmanager/queues" href="qmanager?queues"
+					onclick="processRequest(this);return false;">Queues</a></li>
+				<li><a id="qmanager/topics" href="qmanager?topics"
+					onclick="processRequest(this);return false;">Topics</a></li>
 			</ul></li>
+
+		<li><a href="settings">Settings</a></li>
 	</ul>
 </div>
 

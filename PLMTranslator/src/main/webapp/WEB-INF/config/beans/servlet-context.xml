@@ -13,7 +13,6 @@
                            http://activemq.apache.org/schema/core/activemq-core.xsd">
 
 
-
 	<!-- a pooling based JMS provider -->
 	<beans:bean id="jmsFactory"
 		class="org.apache.activemq.pool.PooledConnectionFactory"
@@ -27,7 +26,7 @@
 
 
 	<beans:bean id="destination" class="org.apache.activemq.command.ActiveMQQueue">
-		<beans:constructor-arg value="TestQ" />
+		<beans:constructor-arg value="FromWindchill" />
 	</beans:bean>
 
 	<!-- Spring JMS Template -->
