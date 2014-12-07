@@ -22,19 +22,20 @@ import com.plm.conn.beans.ActiveMQBrowser;
 public class QueueManagementController {
 	private static final Logger logger = LoggerFactory
 			.getLogger(QueueManagementController.class);
-	
-	
 
-	@RequestMapping(value = {"/queues" }, method = RequestMethod.GET)
-	public String qManagerQueues(Locale locale, Model model) throws JMSException {
+	@RequestMapping(value = { "/queues" }, method = RequestMethod.GET)
+	public String qManagerQueues(Locale locale, Model model)
+			throws JMSException {
 		logger.info("Welcome qManagerQueues! The client locale is {}.", model);
-		
+
 		return "queues";
 	}
-	
-	@RequestMapping(value = {"/topics" }, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/topics" }, method = RequestMethod.GET)
 	public String qManagerTopics(Locale locale, Model model) {
 		logger.info("Welcome qManagerTopics! The client locale is {}.", locale);
 		return "topics";
 	}
+
+
 }

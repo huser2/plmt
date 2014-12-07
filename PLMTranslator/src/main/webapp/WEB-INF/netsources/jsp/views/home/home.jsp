@@ -37,7 +37,13 @@
 					onclick="processRequest(this);return false;">Topics</a></li>
 			</ul></li>
 
-		<li><a href="settings">Settings</a></li>
+		<li><a href="appSettings">Settings</a>
+		<ul>
+				<li><a id="settings/qprops" href="settings?qprops"
+					onclick="processRequest(this);return false;">Configure Queues</a></li>
+				
+			</ul>
+		</li>
 	</ul>
 </div>
 
