@@ -20,17 +20,8 @@
 <link rel="stylesheet" href="resources/css/displaytag.css"
 	type="text/css">
 <%
-	List<Person> list = new ArrayList<Person>();
-	for (int i = 0; i < 10; i++) {
-		Person p = new Person();
-		p.setDescription("description" + i);
-		p.setId("id" + i);
-		p.setName("name" + i);
-		list.add(p);
-	}
-	request.setAttribute("test", list);
 	// Launch the application
-	ApplicationContext context = ApplicationContextProvider.getApplicationContext();
+	/* ApplicationContext context = ApplicationContextProvider.getApplicationContext();
 	out.print(context);
 	MessageSender sender = (MessageSender) context.getBean("messageSender");
 	MessageReceiver rec =(MessageReceiver) context.getBean("messageListener");
@@ -40,10 +31,10 @@
 	message.put("state", "Singapore");
 	message.put("city", "Singapore");
 
-	sender.send(message);
+	sender.send(message);*/
 
-	out.println("Message Send to Jms Queue:- " + message);	
-	out.print("receiver >>>>>"+rec);
+	//out.println("Message Send to Jms Queue:- " + message);	
+	//out.print("receiver >>>>>"+rec);
 	%>
 
 <displayTable:table name="test" class="its">
