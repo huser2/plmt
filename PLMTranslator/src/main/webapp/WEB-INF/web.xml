@@ -10,7 +10,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/root-context.xml
-					/WEB-INF/config/beans/security-context.xml
+					<!-- /WEB-INF/config/beans/security-context.xml  -->
 		</param-value>
 	</context-param>
 

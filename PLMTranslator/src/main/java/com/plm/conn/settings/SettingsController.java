@@ -31,7 +31,7 @@ public class SettingsController {
 		prop.setProperties(props);
 		
 		System.out.println(" inside bean................................."+prop);
-		model.addAttribute("props", QueueProperties.getPropertyMap());
+		//model.addAttribute("props", QueueProperties.getPropertyMap());
 
 		return "qprops";
 	}

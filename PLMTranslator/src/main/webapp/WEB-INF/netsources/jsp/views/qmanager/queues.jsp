@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@page import="java.util.Set"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
@@ -12,22 +12,36 @@
 
 <link rel="stylesheet" href="resources/css/displaytag.css"
 	type="text/css">
-<html>
-<%
 
-ApplicationContext context  = ApplicationContextProvider.getApplicationContext();
-ActiveMQBrowser browser  =  (ActiveMQBrowser)context.getBean("queueBrowser");
-Set qsession = browser.getBrowserConnection().getDestinationSource().getTemporaryQueues();
-out.print(browser.getBrowserConnection().getDestinationSource().getTemporaryQueues());
+<%
+	ApplicationContext context = ApplicationContextProvider
+			.getApplicationContext();
+	ActiveMQBrowser browser = (ActiveMQBrowser) context
+			.getBean("queueBrowser");
+	Set qsession = browser.getBrowserConnection()
+			.getDestinationSource().getTemporaryQueues();
+	out.print("q qty........."+browser.getBrowserConnection().getDestinationSource()
+			.getTemporaryQueues());
 %>
 
-<form action="qmanager/login" method="post">
-    <input type="text" name="username">
-    <input type="password" name="password">
-    <input type="submit">
-</form>
+<html>
+
+<tiles:insertDefinition name="defaultTemplate">
+	<tiles:putAttribute name="body">
 
 
-</body>
 
+		<form action="login" method="post">
+			<input type="text" name="username"> <input type="password"
+				name="password"> <input type="submit">
+		</form>
+
+
+		</body>
 </html>
+
+
+
+
+</tiles:putAttribute>
+</tiles:insertDefinition>

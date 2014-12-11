@@ -30,7 +30,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = {"/home", "/mdm", "/odt", "/appSettings",
+	@RequestMapping(value = {"/","/home", "/mdm", "/odt", "/appSettings",
 			"/qManagement" }, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
@@ -84,7 +84,7 @@ public class HomeController {
 		return "mySettings";
 	}
 
-	@RequestMapping(value ={ "/", "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value ={ "/llll", "/login"}, method = RequestMethod.GET)
 	public String login(Model model) {
 		return "login";
 	}

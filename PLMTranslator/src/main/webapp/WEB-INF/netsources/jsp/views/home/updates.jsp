@@ -2,23 +2,30 @@
 <%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
-<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page
+	import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="org.springframework.boot.SpringApplication"%>
-<%@page import="org.springframework.context.ConfigurableApplicationContext"%>
+<%@page
+	import="org.springframework.context.ConfigurableApplicationContext"%>
 <%@page import="com.plm.conn.jms.senders.MessageSender"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.plm.conn.beans.Person"%>
 <%@page import="java.util.List"%>
+
 
 <%@taglib uri="http://displaytag.sf.net" prefix="displayTable"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
 
 <link rel="stylesheet" href="resources/css/displaytag.css"
 	type="text/css">
+
+
 <%
 	// Launch the application
 	/* ApplicationContext context = ApplicationContextProvider.getApplicationContext();
@@ -35,13 +42,22 @@
 
 	//out.println("Message Send to Jms Queue:- " + message);	
 	//out.print("receiver >>>>>"+rec);
-	%>
+%>
+<tiles:insertDefinition name="defaultTemplate">
+	<tiles:putAttribute name="body">
 
-<displayTable:table name="test" class="its">
-	<displayTable:column property="id" title="Id" />
-	<displayTable:column property="name" title="Name" />
-	<displayTable:column property="description" title="Desc" />
-	<displayTable:column property="email" title="Email" />
-	<displayTable:column property="status" title="Status" />
+		<div class="body">
 
-</displayTable:table>
+
+			<displayTable:table name="test" class="its">
+				<displayTable:column property="id" title="Id" />
+				<displayTable:column property="name" title="Name" />
+				<displayTable:column property="description" title="Desc" />
+				<displayTable:column property="email" title="Email" />
+				<displayTable:column property="status" title="Status" />
+
+			</displayTable:table>
+		</div>
+
+	</tiles:putAttribute>
+</tiles:insertDefinition>
