@@ -1,4 +1,4 @@
-package com.plm.conn.controller;
+package com.plm.conn.hcontroller;
 
 import java.util.ArrayList;
 import java.util.List;

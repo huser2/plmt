@@ -20,7 +20,7 @@ public class ActiveMQBrowser{
 	private ActiveMQSession session;
 
 	
-
+ 
 	
 	public ActiveMQConnection getBrowserConnection() throws JMSException {
 		this.connection = (ActiveMQConnection) jmsTemplate
