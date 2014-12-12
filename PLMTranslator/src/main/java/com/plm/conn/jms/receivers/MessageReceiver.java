@@ -5,6 +5,8 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
+import org.apache.activemq.ActiveMQQueueReceiver;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -28,7 +30,16 @@ public class MessageReceiver implements MessageListener,ExceptionListener {
 		// TODO Auto-generated method stub
 		logger.info(" Hello message received >>>>>>>>>>>>Success!"
 				+ message);
-		System.out.println(" message received ....."+message);
+		
+		
+		try {
+			
+			ActiveMQQueue receiver = (ActiveMQQueue) message.getJMSDestination();
+			System.out.println(" message received ....."+receiver);
+		} catch (JMSException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
