@@ -42,6 +42,7 @@
 	<beans:bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<beans:property name="connectionFactory" ref="jmsFactory" />
 		<beans:property name="defaultDestination" ref="destination" />
+		<beans:property name="deliveryMode" value="2"/>
 	</beans:bean>
 
 	<beans:bean id="messageSender" class="com.plm.conn.jms.senders.MessageSender">

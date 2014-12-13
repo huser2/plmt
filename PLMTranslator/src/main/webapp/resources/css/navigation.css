@@ -35,7 +35,7 @@ ul#navigation li a
     color:#666666;
     padding:0 14px;
     line-height:20px;
-    font-size:11px;
+    font-size:12px;
     font-weight:normal;
     font-family:Trebuchet MS, Tahoma, Arial, Helvetica;
     text-decoration:none;
@@ -102,7 +102,7 @@ ul#navigation ul li a
     color:#000000;
     padding:0;
     padding-left:30px;padding-right:0; 
-    font-size:11px;
+    font-size:12px;
     font-weight:normal;
     font-family:Trebuchet MS, Tahoma, Arial, Helvetica;
     line-height:25px;
@@ -133,7 +133,7 @@ ul#navigation li.dummy a
 ------------------------------------------------------------*/
 ul#navigation ul li li
 {
-    font-size:11px;
+    font-size:12px;
 }
 /* links */
 ul#navigation ul li li a
@@ -141,7 +141,7 @@ ul#navigation ul li li a
     line-height:22px;
     padding: 0; 
     white-space: nowrap;
-    font-size:11px;
+    font-size:12px;
     font-weight:normal;
     font-family:Trebuchet MS, Tahoma, Arial, Helvetica;
 }

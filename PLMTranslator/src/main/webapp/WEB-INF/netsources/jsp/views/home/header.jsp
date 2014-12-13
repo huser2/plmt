@@ -10,8 +10,5 @@ body {
 <title>PLMT</title>
 </head>
 
-<link rel="stylesheet" href="resources/css/screen.css" type="text/css">
-<link rel="stylesheet" href="resources/css/site.css" type="text/css">
-<body style="padding: 20px 20px;">
 
 </div>

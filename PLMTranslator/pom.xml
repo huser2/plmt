@@ -13,8 +13,18 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 		<tiles-version>3.0.5</tiles-version>
+		<mysql-version>5.1.34</mysql-version>
 	</properties>
 	<dependencies>
+
+		<!-- mysql connector -->
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql-version}</version>
+		</dependency>
+
 
 
 		<!-- tiles configuration -->
