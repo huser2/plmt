@@ -10,7 +10,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
 public class QueueProperties extends PropertyPlaceholderConfigurer {
-
+ 
 	private static Map<String, String> propertiesMap;
 	// Default as in PropertyPlaceholderConfigurer
 	private int springSystemPropertiesMode = SYSTEM_PROPERTIES_MODE_FALLBACK;

@@ -42,7 +42,7 @@
 	<beans:bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<beans:property name="connectionFactory" ref="jmsFactory" />
 		<beans:property name="defaultDestination" ref="destination" />
-		<beans:property name="deliveryMode" value="2"/>
+		<beans:property name="deliveryMode" value="2" />
 	</beans:bean>
 
 	<beans:bean id="messageSender" class="com.plm.conn.jms.senders.MessageSender">
@@ -94,9 +94,38 @@
 
 	<beans:bean id="tilesConfigurer"
 		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<beans:property name="definitions" value="/WEB-INF/config/beans/tiles-definitions.xml"/>
+		<beans:property name="definitions"
+			value="/WEB-INF/config/beans/tiles-definitions.xml" />
 	</beans:bean>
 
 
 
+	<!-- Derby configuration -->
+	<beans:bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName"
+			value="org.apache.derby.jdbc.EmbeddedDriver" />
+		<!-- beans:property name="url"
+			value="jdbc:derby://localhost:1527//plmbridge;create=true" /-->
+			
+		<beans:property name="url"
+			value="jdbc:derby:C:\data\Tomcat\apache-tomcat-8.0.15\dbs\plmbridge;user=plmtuser;password=plmtuser;" />
+			
+			
+		<beans:property name="username" value="plmtuser" />
+		<beans:property name="password" value="plmtuser" />
+	</beans:bean>
+
+
+	<beans:bean id="completedDao" class="com.plm.conn.obj.CompletedJobsDao">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean id="failedDao" class="com.plm.conn.obj.FailedJobsDao">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+
+	<beans:bean id="QueueDao" class="com.plm.conn.obj.QueueDao">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
 </beans:beans>

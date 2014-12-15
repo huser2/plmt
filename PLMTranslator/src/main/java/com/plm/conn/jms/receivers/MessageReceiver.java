@@ -12,6 +12,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
+import com.plm.conn.jms.ApplicationContextProvider;
+import com.plm.conn.obj.CompletedJobsDao;
+import com.plm.conn.obj.Queue;
+
 public class MessageReceiver implements MessageListener,ExceptionListener {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
@@ -38,6 +42,18 @@ public class MessageReceiver implements MessageListener,ExceptionListener {
 			
 			ActiveMQQueue receiver = (ActiveMQQueue) message.getJMSDestination();
 			System.out.println(" message received ....."+receiver);
+			
+			Queue queue = new Queue();
+			queue.setMessageId(test.getMessageId());
+			queue.setDestination(test.getDestination());
+			queue.setGroupID(queue.getGroupID());
+			queue.setConnection(test.getConnection());
+			queue.setJMSDeliveryMode(test.getJMSDeliveryMode());
+			queue.setJMSPriority(test.getJMSPriority());
+			
+			 CompletedJobsDao complObject = ApplicationContextProvider.getApplicationContext().getBean(CompletedJobsDao.class);
+			 complObject.saveQueue(queue);
+			
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
