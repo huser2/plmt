@@ -15,11 +15,19 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 
 	@Override
 	public Queue saveQueue(Queue queue) {
-		double i= Math.random();
+		
+		int maximum=99;
+		int minimum=1;
+		Random rn = new Random();
+		int n = maximum - minimum + 1;
+		int i = rn.nextInt() % n;
+		i =  minimum + i;
+		
 		try {
 			if(dataSource.getConnection()!=null){
 			JdbcTemplate jdbcTemplate =  new JdbcTemplate(dataSource);
-			int j = jdbcTemplate.update("INSERT INTO QUEUE(ID, CONTAINER, MSGID_PROD, MSGID_SEQ, EXPIRATION, MSG, PRIORITY, XID) VALUES("+132323+i+", 'Hellooo', 'Testing', 0, 0, '', 0, 'Waht');");
+		   Object[] params = new Object[]{i+", 'Hellooo', 'Testing', 0, 0, '', 0, 'Waht');"};
+			int j = jdbcTemplate.update("INSERT INTO PLMT.QUEUE(ID, CONTAINER, MSGID_PROD, MSGID_SEQ, EXPIRATION, MSG, PRIORITY, XID) VALUES(?,?,?,?,?,?,?,?)",params);
 			}
 		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
