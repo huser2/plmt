@@ -19,13 +19,13 @@ public class FailedJobsDao implements QueueDataAccessObject {
 	public Queue saveQueue(Queue queue) {
 		try {
 			if (dataSource.getConnection() != null) {
-				Connection conn = dataSource.getConnection();				
-
+				Connection conn = dataSource.getConnection();
 
 				String insetSql = "INSERT INTO PLMT.FAILEDJOBS"
 						+ "(CONTAINER, MSGID_PROD, MSGID_SEQ, EXPIRATION, MSG, PRIORITY, XID, ID, QUEUE_ID)"
 						+ "VALUES(?,?,?,?,?,?,?,?,?)";
-				PreparedStatement stmt = conn.prepareStatement(insetSql,Statement.RETURN_GENERATED_KEYS);
+				PreparedStatement stmt = conn.prepareStatement(insetSql,
+						Statement.RETURN_GENERATED_KEYS);
 				stmt.setString(1, queue.getDestination().getPhysicalName());
 				stmt.setString(2, queue.getProducerId().toString());
 				stmt.setInt(3, (int) queue.getProducerId().getValue());
@@ -37,14 +37,17 @@ public class FailedJobsDao implements QueueDataAccessObject {
 				Blob blob = conn.createBlob();
 				blob.setBytes(1, chuck);
 				stmt.setBlob(5, blob);
-				
-				stmt.setInt(6, queue.getPriority());				
+
+				stmt.setInt(6, queue.getPriority());
 				stmt.setString(7, queue.getJMSXMimeType());
-				
-				stmt.setString(8, queue.getMessageId().toString());	
+
+				stmt.setString(8, queue.getMessageId().toString());
 				stmt.setInt(9, queue.getQueue_Id());
 				stmt.executeUpdate();
-				
+
+				stmt.close();
+				conn.close();
+
 			}
 		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
@@ -66,6 +69,9 @@ public class FailedJobsDao implements QueueDataAccessObject {
 						+ "FROM PLMT.FAILEDJOBS;";
 				PreparedStatement stmt = conn.prepareStatement(selectSql);
 				result = stmt.executeQuery();
+
+				stmt.close();
+				conn.close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +92,9 @@ public class FailedJobsDao implements QueueDataAccessObject {
 						+ msgId;
 				PreparedStatement stmt = conn.prepareStatement(deleteSql);
 				stmt.execute();
+
+				stmt.close();
+				conn.close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -104,6 +113,9 @@ public class FailedJobsDao implements QueueDataAccessObject {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(selectSql);
 			result = stmt.executeQuery();
+
+			stmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -45,6 +45,9 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 				stmt.setInt(9, queue.getQueue_Id());
 				stmt.executeUpdate();
 				
+				stmt.close();
+				conn.close();
+				
 			}
 		} catch (DataAccessException e) {
 			// TODO Auto-generated catch block
@@ -66,6 +69,8 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 						+ "FROM PLMT.COMPLETEDJOBS;";
 				PreparedStatement stmt = conn.prepareStatement(selectSql);
 				result = stmt.executeQuery();
+				stmt.close();
+				conn.close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -86,6 +91,8 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 						+ msgId;
 				PreparedStatement stmt = conn.prepareStatement(deleteSql);
 				stmt.execute();
+				stmt.close();
+				conn.close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -104,6 +111,9 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(selectSql);
 			result = stmt.executeQuery();
+			
+			stmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

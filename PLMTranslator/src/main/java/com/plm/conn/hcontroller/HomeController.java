@@ -83,21 +83,4 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate);
 		return "mySettings";
 	}
-
-	@RequestMapping(value ={ "/llll", "/login"}, method = RequestMethod.GET)
-	public String login(Model model) {
-		return "login";
-	}
-
-	@RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
-	public String loginerror(Model model) {
-		model.addAttribute("error", "true");
-		return "denied";
-	}
-
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(Model model) {
-		return "logout";
-	}
-
 }

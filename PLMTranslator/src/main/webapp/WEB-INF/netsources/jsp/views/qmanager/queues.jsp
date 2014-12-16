@@ -1,47 +1,26 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<%@page import="java.util.Set"%>
-<%@page import="org.springframework.context.ApplicationContext"%>
+
+<%@page import="java.sql.ResultSet"%>
 <%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
-<%@page import="javax.jms.Session"%>
-<%@page import="com.plm.conn.beans.ActiveMQBrowser"%>
-<%@taglib uri="http://displaytag.sf.net" prefix="displayTable"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
-
-<link rel="stylesheet" href="resources/css/displaytag.css"
-	type="text/css">
+<%@page import="com.plm.conn.obj.QueueDao"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
 <%
-	ApplicationContext context = ApplicationContextProvider
-			.getApplicationContext();
-	ActiveMQBrowser browser = (ActiveMQBrowser) context
-			.getBean("queueBrowser");
-	Set qsession = browser.getBrowserConnection()
-			.getDestinationSource().getTemporaryQueues();
-	out.print("q qty........."+browser.getBrowserConnection().getDestinationSource()
-			.getTemporaryQueues());
+	QueueDao queue = ApplicationContextProvider.getApplicationContext()
+			.getBean(QueueDao.class);
+	out.print(queue.getQueueList());
+	ResultSet rs = queue.getQueueList();
 %>
-
-<html>
-
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
 
+		<div class="body">
+		
+		<h1>hoooooo</h1>
+			<a href="topics.jsp">hello</a>
 
 
-		<form action="login" method="post">
-			<input type="text" name="username"> <input type="password"
-				name="password"> <input type="submit">
-		</form>
+		</div>
 
 
-		</body>
-</html>
-
-
-
-
-</tiles:putAttribute>
+	</tiles:putAttribute>
 </tiles:insertDefinition>

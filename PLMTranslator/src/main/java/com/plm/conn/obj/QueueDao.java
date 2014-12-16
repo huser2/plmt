@@ -50,6 +50,9 @@ public class QueueDao implements QueueDataAccessObject {
 					generatedkey = rs.getInt(1);
 				}
 				queue.setQueue_Id(generatedkey);
+				
+				stmt.close();
+				conn.close();
 
 			}
 		} catch (DataAccessException e) {
@@ -68,10 +71,12 @@ public class QueueDao implements QueueDataAccessObject {
 		try {
 			if (dataSource.getConnection() != null) {
 				Connection conn = dataSource.getConnection();
-				String selectSql = "SELECT CONTAINER, MSGID_PROD, MSGID_SEQ, EXPIRATION, MSG, PRIORITY, XID, ID, QUEUE_ID"
-						+ "FROM PLMT.QUEUE;";
+				String selectSql = "SELECT * FROM PLMT.QUEUE";
 				PreparedStatement stmt = conn.prepareStatement(selectSql);
 				result = stmt.executeQuery();
+				stmt.close();
+				conn.close();
+				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -92,6 +97,8 @@ public class QueueDao implements QueueDataAccessObject {
 						+ msgId;
 				PreparedStatement stmt = conn.prepareStatement(deleteSql);
 				stmt.execute();
+				stmt.close();
+				conn.close();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -110,6 +117,8 @@ public class QueueDao implements QueueDataAccessObject {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(selectSql);
 			result = stmt.executeQuery();
+			stmt.close();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
