@@ -23,7 +23,23 @@ import org.apache.activemq.util.Callback;
  *
  */
 public class Queue extends ActiveMQMessage {
+	
+	public int queue_Id;
   
+	/**
+	 * @return the queue_Id
+	 */
+	public int getQueue_Id() {
+		return queue_Id;
+	}
+
+	/**
+	 * @param queue_Id the queue_Id to set
+	 */
+	public void setQueue_Id(int queue_Id) {
+		this.queue_Id = queue_Id;
+	}
+
 	/**
 	 * 
 	 */

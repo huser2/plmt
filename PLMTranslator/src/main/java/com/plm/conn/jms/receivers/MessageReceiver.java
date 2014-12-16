@@ -14,11 +14,14 @@ import org.springframework.jms.core.JmsTemplate;
 
 import com.plm.conn.jms.ApplicationContextProvider;
 import com.plm.conn.obj.CompletedJobsDao;
+import com.plm.conn.obj.FailedJobsDao;
 import com.plm.conn.obj.Queue;
+import com.plm.conn.obj.QueueDao;
 
-public class MessageReceiver implements MessageListener,ExceptionListener {
-	
-	private static final Logger logger = LoggerFactory.getLogger(MessageReceiver.class);
+public class MessageReceiver implements MessageListener, ExceptionListener {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(MessageReceiver.class);
 
 	private JmsTemplate jmsTemplate;
 
@@ -33,27 +36,42 @@ public class MessageReceiver implements MessageListener,ExceptionListener {
 	@Override
 	public void onMessage(Message message) {
 		// TODO Auto-generated method stub
-		ActiveMQTextMessage test = (ActiveMQTextMessage) message;
-		logger.info(" Hello message received >>>>>>>>>>>>Success!"
-				+ test);
-		
-		
+		ActiveMQTextMessage incomeMsg = (ActiveMQTextMessage) message;
+		logger.info(" Hello message received >>>>>>>>>>>>Success!" + incomeMsg);
+
 		try {
-			
-			ActiveMQQueue receiver = (ActiveMQQueue) message.getJMSDestination();
-			System.out.println(" message received ....."+receiver);
-			
+
+			ActiveMQQueue receiver = (ActiveMQQueue) message
+					.getJMSDestination();
+			System.out.println(" message received ....." + receiver);
+
 			Queue queue = new Queue();
-			queue.setMessageId(test.getMessageId());
-			queue.setDestination(test.getDestination());
+			queue.setMessageId(incomeMsg.getMessageId());
+			queue.setDestination(incomeMsg.getDestination());
 			queue.setGroupID(queue.getGroupID());
-			queue.setConnection(test.getConnection());
-			queue.setJMSDeliveryMode(test.getJMSDeliveryMode());
-			queue.setJMSPriority(test.getJMSPriority());
-			
-			 CompletedJobsDao complObject = ApplicationContextProvider.getApplicationContext().getBean(CompletedJobsDao.class);
-			 complObject.saveQueue(queue);
-			
+			queue.setConnection(incomeMsg.getConnection());
+			queue.setJMSDeliveryMode(incomeMsg.getJMSDeliveryMode());
+			queue.setJMSPriority(incomeMsg.getJMSPriority());
+			queue.setJMSExpiration(incomeMsg.getJMSExpiration());
+			queue.setJMSPriority(incomeMsg.getPriority());
+			queue.setJMSType(incomeMsg.getJMSXMimeType());
+			queue.setProducerId(incomeMsg.getProducerId());
+			queue.setJMSCorrelationID(incomeMsg.getJMSCorrelationID());
+
+			// save to main queue list
+			QueueDao queueObject = ApplicationContextProvider
+					.getApplicationContext().getBean(QueueDao.class);
+			queueObject.saveQueue(queue);
+
+			// completedJobs
+			CompletedJobsDao completed = ApplicationContextProvider
+					.getApplicationContext().getBean(CompletedJobsDao.class);
+			completed.saveQueue(queue);
+
+			FailedJobsDao failed = ApplicationContextProvider
+					.getApplicationContext().getBean(FailedJobsDao.class);
+			failed.saveQueue(queue);
+
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,8 +81,8 @@ public class MessageReceiver implements MessageListener,ExceptionListener {
 
 	@Override
 	public void onException(JMSException exception) {
-		// TODO Auto-generated method stub
-		
+		 System.out.println("JMS Exception occured.  Shutting down client.");
+		 exception.printStackTrace();
 	}
 
 }

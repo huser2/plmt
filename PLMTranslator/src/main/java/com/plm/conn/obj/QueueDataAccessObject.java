@@ -1,5 +1,6 @@
 package com.plm.conn.obj;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -12,10 +13,10 @@ public interface QueueDataAccessObject {
 
 	public Queue saveQueue(Queue queue);
 
-	public List<Queue> getQueueList();
+	public ResultSet getQueueList();
 
 	public void deleteQueue(Queue queue);
 
-	public Queue getQueueById(String id);
+	public ResultSet getQueueById(String id);
 
 }
