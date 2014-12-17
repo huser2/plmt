@@ -4,10 +4,10 @@
        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
   
-    <definition name="defaultTemplate" template="/WEB-INF/netsources/jsp/views/home/template.jsp">
-        <put-attribute name="header" value="/WEB-INF/netsources/jsp/views/home/header.jsp" />
-        <put-attribute name="menu" value="/WEB-INF/netsources/jsp/views/home/menu.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/netsources/jsp/views/home/footer.jsp" />
+    <definition name="defaultTemplate" template="/WEB-INF/netsources/jsp/views/common/template.jsp">
+        <put-attribute name="header" value="/WEB-INF/netsources/jsp/views/common/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/netsources/jsp/views/common/menu.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/netsources/jsp/views/common/footer.jsp" />
     </definition>
   
 </tiles-definitions>

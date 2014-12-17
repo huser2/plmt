@@ -5,13 +5,7 @@
 <div id="menu">
 	<ul id="navigation">
 		<li><spring:url value="/home" var="homeUrl" htmlEscape="true" />
-			<a href="${homeUrl}">Home</a>
-			<ul>
-				<li><spring:url value="/homeUpdates" var="homeUpdates"
-						htmlEscape="true" /> <a href="${homeUpdates}">Updates</a>
-				<li><spring:url value="/homeMySettings" var="homeMySettings"
-						htmlEscape="true" /> <a href="${homeMySettings}">My Settings</a>
-			</ul></li>
+			<a href="${homeUrl}">Home</a></li>
 		<li><spring:url value="/qManagement" var="qManagementUrl"
 				htmlEscape="true" /> <a href="${qManagementUrl}">Queues</a>
 			<ul>

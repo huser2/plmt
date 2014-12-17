@@ -30,8 +30,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = {"/","/home", "/mdm", "/odt", "/appSettings",
-			"/qManagement" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home", "/qManagement" }, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
@@ -49,7 +48,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/homeUpdates", method = RequestMethod.GET)
+	@RequestMapping(value = "/overview", method = RequestMethod.GET)
 	public String updates(Locale locale, Model model) {
 		logger.info("Welcome updates! The client locale is {}.", locale);
 
@@ -64,23 +63,6 @@ public class HomeController {
 
 		model.addAttribute("test", list);
 
-		return "updates";
-	}
-
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/homeMySettings", method = RequestMethod.GET)
-	public String mySettings(Locale locale, Model model) {
-		logger.info("Welcome mySettings! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
-		return "mySettings";
+		return "overview";
 	}
 }
