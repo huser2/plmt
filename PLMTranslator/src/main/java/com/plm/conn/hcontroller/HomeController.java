@@ -1,10 +1,15 @@
 package com.plm.conn.hcontroller;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,16 +36,20 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = { "/", "/home", "/qManagement" }, method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
-				DateFormat.LONG, locale);
-
-		String formattedDate = dateFormat.format(date);
-
-		model.addAttribute("serverTime", formattedDate);
+	public String home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
+		
+		InetAddress inet = null;
+		try {
+			inet = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("hostName", inet.getHostName());
+		model.addAttribute("ipAddress", inet.getHostAddress());
+		model.addAttribute("tcpBrokerURL","tcp://"+inet.getHostAddress()+":16161/");
+		model.addAttribute("stompBrokerURL","stomp://"+inet.getHostAddress()+":61613/");	
+		
 
 		return "home";
 	}

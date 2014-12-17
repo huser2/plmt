@@ -1,23 +1,38 @@
+<%@page import="java.net.InetAddress"%>
 <%@page import="org.apache.activemq.command.MessageId"%>
 <%@page import="com.plm.conn.obj.Queue"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
- 
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
+
 <tiles:insertDefinition name="defaultTemplate">
-    <tiles:putAttribute name="body">
- 
- 
- 
-        <div class="body">
-            <h1>Home page !</h1>
- 
-            <p>The time on the server is ${serverTime}.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
-                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</P>
-        </div>
- 
- 
- 
-    </tiles:putAttribute>
+	<tiles:putAttribute name="body">
+
+
+
+		<div class="body">
+		
+			<table>
+				<tr>
+					<td>Server Host Name</td>
+					<td><b>${hostName}</b></td>
+				</tr>
+				<tr>
+					<td>Server IP Address</td>
+					<td><b>${ipAddress}</b></td>
+				</tr>
+				<tr>
+					<td>Listening for (TCP) connections at</td>
+					<td><b>${tcpBrokerURL}</b></td>
+				</tr>
+				<tr>
+					<td>Listening for (STOMP) connections at</td>
+					<td><b>${stompBrokerURL}</b></td>
+				</tr>
+				
+			</table>
+		</div>
+
+
+
+	</tiles:putAttribute>
 </tiles:insertDefinition>
