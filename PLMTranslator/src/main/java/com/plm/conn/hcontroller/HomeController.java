@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.plm.conn.beans.Person;
+
 
 /**
  * Handles requests for the application home page.
@@ -50,18 +50,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/overview", method = RequestMethod.GET)
 	public String updates(Locale locale, Model model) {
-		logger.info("Welcome updates! The client locale is {}.", locale);
-
-		List<Person> list = new ArrayList<Person>();
-		for (int i = 0; i < 10; i++) {
-			Person p = new Person();
-			p.setDescription("description inside controller" + i);
-			p.setId("id" + i);
-			p.setName("name" + i);
-			list.add(p);
-		}
-
-		model.addAttribute("test", list);
+		logger.info("Welcome updates! The client locale is {}.", locale);	
 
 		return "overview";
 	}

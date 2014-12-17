@@ -12,16 +12,6 @@
 				<li><spring:url value="/qmanager/queues" var="queuesUrl"
 						htmlEscape="true" /> <a href="${queuesUrl}">Queues</a></li>
 			</ul></li>
-		<li><spring:url value="/appSettings" var="settingsUrl"
-				htmlEscape="true" /> <a href="${settingsUrl}">Settings</a>
-
-
-			<ul>
-				<li><spring:url value="/settings/qprops" var="qPropsUrl"
-						htmlEscape="true" /> <a href="${qPropsUrl}">Configure Queues</a>
-				</li>
-
-			</ul></li>
 	</ul>
 </div>
 
