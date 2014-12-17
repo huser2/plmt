@@ -31,11 +31,5 @@ public class QueueManagementController {
 		return "queues";
 	}
 
-	@RequestMapping(value = { "/topics" }, method = RequestMethod.GET)
-	public String qManagerTopics(Locale locale, Model model) {
-		logger.info("Welcome qManagerTopics! The client locale is {}.", locale);
-		return "topics";
-	}
-
-
+	
 }
