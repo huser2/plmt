@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
 /**
  * Handles requests for the application home page.
  */
@@ -35,9 +33,10 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/", "/home", "/qManagement" }, method = RequestMethod.GET)
-	public String home(Locale locale, Model model,HttpServletRequest request,HttpServletResponse response) {
-		
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+	public String home(Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		InetAddress inet = null;
 		try {
 			inet = InetAddress.getLocalHost();
@@ -47,20 +46,12 @@ public class HomeController {
 		}
 		model.addAttribute("hostName", inet.getHostName());
 		model.addAttribute("ipAddress", inet.getHostAddress());
-		model.addAttribute("tcpBrokerURL","tcp://"+inet.getHostAddress()+":16161/");
-		model.addAttribute("stompBrokerURL","stomp://"+inet.getHostAddress()+":61613/");	
-		
+		model.addAttribute("tcpBrokerURL", "tcp://" + inet.getHostAddress()
+				+ ":16161/");
+		model.addAttribute("stompBrokerURL", "stomp://" + inet.getHostAddress()
+				+ ":61613/");
 
 		return "home";
 	}
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/overview", method = RequestMethod.GET)
-	public String updates(Locale locale, Model model) {
-		logger.info("Welcome updates! The client locale is {}.", locale);	
-
-		return "overview";
-	}
 }

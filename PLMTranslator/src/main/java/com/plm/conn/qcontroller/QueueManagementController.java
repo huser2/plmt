@@ -24,12 +24,48 @@ public class QueueManagementController {
 			.getLogger(QueueManagementController.class);
 
 	@RequestMapping(value = { "/queues" }, method = RequestMethod.GET)
-	public String qManagerQueues(Locale locale, Model model)
+	public String configQueues(Locale locale, Model model)
 			throws JMSException {
-		logger.info("Welcome qManagerQueues! The client locale is {}.", model);
+		logger.info("Welcome configQueues! The client locale is {}.", model);
 
 		return "queues";
 	}
 
+	@RequestMapping(value = { "/properties" }, method = RequestMethod.GET)
+	public String configProperties(Locale locale, Model model)
+			throws JMSException {
+		logger.info("Welcome configQueues! The client locale is {}.", model);
+
+		return "properties";
+	}
 	
+	@RequestMapping(value = { "/attributes" }, method = RequestMethod.GET)
+	public String configAttributes(Locale locale, Model model)
+			throws JMSException {
+		logger.info("Welcome configQueues! The client locale is {}.", model);
+
+		return "attributes";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/config", method = RequestMethod.GET)
+	public String config(Locale locale, Model model) {
+		logger.info("Welcome updates! The client locale is {}.", locale);	
+
+		return "config";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/mappings", method = RequestMethod.GET)
+	public String configMappings(Locale locale, Model model) {
+		logger.info("Welcome updates! The client locale is {}.", locale);	
+
+		return "mappings";
+	}
+
+
 }

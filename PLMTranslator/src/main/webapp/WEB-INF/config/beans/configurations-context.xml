@@ -16,17 +16,11 @@
 	<beans:bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix"
-			value="/WEB-INF/netsources/jsp/views/qmanager/" />
+			value="/WEB-INF/netsources/jsp/views/config/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
 	<annotation-driven />
 	<context:component-scan base-package="com.plm.conn.qcontroller" />
 	
-	
-  <beans:bean id="queueBrowser" class="org.apache.activemq.web.QueueBrowseQuery" autowire="constructor" destroy-method="destroy" scope="request"/>
-  <beans:bean id="messageQuery" class="org.apache.activemq.web.MessageQuery" autowire="constructor" destroy-method="destroy" scope="request"/>
-  <beans:bean id="queueConsumerQuery" class="org.apache.activemq.web.QueueConsumerQuery" autowire="constructor" destroy-method="destroy" scope="request"/>
-  <beans:bean id="connectionQuery" class="org.apache.activemq.web.ConnectionQuery" autowire="constructor" destroy-method="destroy" scope="request"/>
-
 </beans:beans>

@@ -11,7 +11,7 @@
 
 		<div class="body">
 		
-			<table>
+			<table border="0">
 				<tr>
 					<td>Server Host Name</td>
 					<td><b>${hostName}</b></td>

@@ -36,17 +36,17 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>qmanager</servlet-name>
+		<servlet-name>config</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/beans/qmanager-context.xml</param-value>
+			<param-value>/WEB-INF/config/beans/configurations-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>qmanager</servlet-name>
-		<url-pattern>/qmanager/*</url-pattern>
+		<servlet-name>config</servlet-name>
+		<url-pattern>/config/*</url-pattern>
 	</servlet-mapping>
 	
 	

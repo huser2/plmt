@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>PLM Translator</title>
+<title>PLMBridge</title>
 
 
 <link href="resources/css/navigation.css" rel="stylesheet"
@@ -15,7 +15,7 @@
 
 </head>
 <body>
-	<div class="page">
+	<div class="page" style="background-color: transparent;">
 		<tiles:insertAttribute name="header" />
 		<div class="content">
 			<tiles:insertAttribute name="menu" />
