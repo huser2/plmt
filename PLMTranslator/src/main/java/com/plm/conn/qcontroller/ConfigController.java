@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.plm.conn.beans.ActiveMQBrowser;
 
 @Controller
-public class QueueManagementController {
+public class ConfigController {
 	private static final Logger logger = LoggerFactory
-			.getLogger(QueueManagementController.class);
+			.getLogger(ConfigController.class);
 
 	@RequestMapping(value = { "/queues" }, method = RequestMethod.GET)
 	public String configQueues(Locale locale, Model model)
@@ -65,6 +65,16 @@ public class QueueManagementController {
 		logger.info("Welcome updates! The client locale is {}.", locale);	
 
 		return "mappings";
+	}
+	
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/messages", method = RequestMethod.GET)
+	public String configMessages(Locale locale, Model model) {
+		logger.info("Welcome updates! The client locale is {}.", locale);	
+
+		return "messages";
 	}
 
 

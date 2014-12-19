@@ -131,9 +131,12 @@ public class FailedJobsDao implements QueueDataAccessObject {
 
 	}
 
+	
+
 	@Override
-	public DataSource getDataSource(DataSource ds) {
-		return ds;
+	public DataSource getDataSource() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

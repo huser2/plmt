@@ -9,7 +9,7 @@ public interface QueueDataAccessObject {
 
 	void setDataSource(DataSource ds);
 
-	DataSource getDataSource(DataSource ds);
+	public DataSource getDataSource();
 
 	public Queue saveQueue(Queue queue);
 

@@ -1,8 +1,21 @@
+<%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
+<%@page import="com.plm.conn.obj.CompletedJobsDao"%>
 <%@page import="java.net.InetAddress"%>
 <%@page import="org.apache.activemq.command.MessageId"%>
 <%@page import="com.plm.conn.obj.Queue"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
+<%
+
+CompletedJobsDao obj = ApplicationContextProvider.getApplicationContext().getBean(CompletedJobsDao.class);
+
+try{
+out.print(obj.getDataSource().getConnection().getMetaData().getIdentifierQuoteString());
+}catch(Exception e){
+	e.printStackTrace();
+}
+
+%>
 
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">

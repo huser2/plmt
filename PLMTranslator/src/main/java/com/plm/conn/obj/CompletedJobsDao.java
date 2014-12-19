@@ -130,8 +130,8 @@ public class CompletedJobsDao implements QueueDataAccessObject {
 	}
 
 	@Override
-	public DataSource getDataSource(DataSource ds) {
-		return ds;
+	public DataSource getDataSource() {
+		return dataSource;
 	}
 
 }
