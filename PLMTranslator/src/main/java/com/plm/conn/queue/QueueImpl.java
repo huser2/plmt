@@ -1,4 +1,4 @@
-package com.plm.conn.obj;
+package com.plm.conn.queue;
 
 import java.sql.Blob;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 
 import org.springframework.dao.DataAccessException;
 
-public class QueueDao implements QueueDataAccessObject {
+public class QueueImpl implements QueueDAO {
 
 	private DataSource dataSource;
 	public int queue_Id;

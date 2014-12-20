@@ -117,7 +117,7 @@ ul#navigation li.active li a, ul#navigation li.active li a:hover {
 
 ul#navigation ul li.subActive a, ul#navigation ul li a:hover
 {
-    text-decoration: underline;
+    text-decoration:underline;
     color:#0066CC;
 }
 

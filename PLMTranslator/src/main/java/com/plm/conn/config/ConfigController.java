@@ -1,4 +1,4 @@
-package com.plm.conn.qcontroller;
+package com.plm.conn.config;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
-package com.plm.conn.obj;
+package com.plm.conn.queue;
 
 import java.sql.ResultSet;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-public interface QueueDataAccessObject {
+public interface QueueDAO {
 
 	void setDataSource(DataSource ds);
 

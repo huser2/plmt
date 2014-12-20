@@ -1,1 +1,1 @@
-<div class="header"><!-- h3 style="border:0;padding: 0">PLMBridge</h3 --></div>
+<div class="header"><h3 style="border:0;padding: 0">PLMBridge</h3></div>

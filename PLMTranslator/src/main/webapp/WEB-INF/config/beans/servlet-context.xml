@@ -106,19 +106,28 @@
 		<beans:property name="driverClassName"
 			value="org.apache.derby.jdbc.ClientDriver" />	
 		<beans:property name="url"
-			value="jdbc:derby://localhost:1527//plmbridge;create=false"/>				
+			value="jdbc:derby://localhost:1527//plmbridge;create=false"/>	
+			<beans:property name="username" value="plmt" />			
 	</beans:bean>
 
 
-	<beans:bean id="completedDao" class="com.plm.conn.obj.CompletedJobsDao">
+	<beans:bean id="completedDao" class="com.plm.conn.queue.CompletedQueueImpl">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 
-	<beans:bean id="failedDao" class="com.plm.conn.obj.FailedJobsDao">
+	<beans:bean id="failedDao" class="com.plm.conn.queue.FailedQueueImpl">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
 
-	<beans:bean id="QueueDao" class="com.plm.conn.obj.QueueDao">
+	<beans:bean id="queueDao" class="com.plm.conn.queue.QueueImpl">
 		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
+	
+	
+	<beans:bean id="queueHelper" class="com.plm.conn.queue.QueueHelper">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean id="queueServiceFwd" class="com.plm.conn.queue.QueueServiceFwd"/>
+	
 </beans:beans>

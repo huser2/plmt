@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.plm.conn.obj;
+package com.plm.conn.queue;
 
 import java.util.Enumeration;
 import java.util.Map;

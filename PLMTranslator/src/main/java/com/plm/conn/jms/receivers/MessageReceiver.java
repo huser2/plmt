@@ -5,7 +5,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 
-import org.apache.activemq.ActiveMQQueueReceiver;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTextMessage;
 import org.slf4j.Logger;
@@ -13,10 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.jms.core.JmsTemplate;
 
 import com.plm.conn.jms.ApplicationContextProvider;
-import com.plm.conn.obj.CompletedJobsDao;
-import com.plm.conn.obj.FailedJobsDao;
-import com.plm.conn.obj.Queue;
-import com.plm.conn.obj.QueueDao;
+import com.plm.conn.queue.CompletedQueueImpl;
+import com.plm.conn.queue.FailedQueueImpl;
+import com.plm.conn.queue.Queue;
+import com.plm.conn.queue.QueueImpl;
 
 public class MessageReceiver implements MessageListener, ExceptionListener {
 
@@ -45,7 +44,7 @@ public class MessageReceiver implements MessageListener, ExceptionListener {
 					.getJMSDestination();
 			System.out.println(" message received ....." + receiver);
 
-			Queue queue = new Queue();
+			Queue queue = new com.plm.conn.queue.Queue();
 			queue.setMessageId(incomeMsg.getMessageId());
 			queue.setDestination(incomeMsg.getDestination());
 			queue.setGroupID(queue.getGroupID());
@@ -59,17 +58,17 @@ public class MessageReceiver implements MessageListener, ExceptionListener {
 			queue.setJMSCorrelationID(incomeMsg.getJMSCorrelationID());
 
 			// save to main queue list
-			QueueDao queueObject = ApplicationContextProvider
-					.getApplicationContext().getBean(QueueDao.class);
+			QueueImpl queueObject = ApplicationContextProvider
+					.getApplicationContext().getBean(QueueImpl.class);
 			queueObject.saveQueue(queue);
 
 			// completedJobs
-			CompletedJobsDao completed = ApplicationContextProvider
-					.getApplicationContext().getBean(CompletedJobsDao.class);
+			CompletedQueueImpl completed = ApplicationContextProvider
+					.getApplicationContext().getBean(CompletedQueueImpl.class);
 			completed.saveQueue(queue);
 
-			FailedJobsDao failed = ApplicationContextProvider
-					.getApplicationContext().getBean(FailedJobsDao.class);
+			FailedQueueImpl failed = ApplicationContextProvider
+					.getApplicationContext().getBean(FailedQueueImpl.class);
 			failed.saveQueue(queue);
 
 		} catch (JMSException e) {
