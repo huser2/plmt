@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-@Component
-@Service
 public class QueueService implements Serializable {
 
 	/**
@@ -31,13 +29,13 @@ public class QueueService implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
-	@Transactional
+	
 	public void addQueue(Queue queue) {
 		logger.info(" adding..." + queue.getId());
 		em.persist(queue);
 	}
 
-	@Transactional
+	
 	public List<Queue> getAll() {
 		TypedQuery<Queue> query = em.createNamedQuery("Queue.findAll",
 				Queue.class);

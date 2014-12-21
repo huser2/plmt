@@ -15,7 +15,7 @@ public class Queue implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="QUEUE_ID", unique=true, nullable=false)
 	private int queueId;
 

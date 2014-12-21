@@ -58,13 +58,13 @@ public class HomeController {
 		model.addAttribute("stompBrokerURL", "stomp://" + inet.getHostAddress()
 				+ ":61613/");
 
-		//Queue queue = new Queue();
-		//queue.setMsgidProd("1212121212");
-		//queueSvc.addQueue(queue);
+		Queue queue = new Queue();
+		queue.setMsgidProd("1212121212");
+		queueSvc.addQueue(queue);
 		
-		logger.info(queueSvc.toString());
+		logger.info(""+queueSvc.getAll().size());
 		
-		model.addAttribute("list", queueSvc.getAll());
+		
 
 		return "home";
 	}
