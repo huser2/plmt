@@ -1,23 +1,12 @@
-<%@page import="com.plm.conn.queue.QueueServiceFwd"%>
+
+<%@page import="com.plm.conn.model.Queue"%>
+<%@page import="com.plm.conn.model.QueueService"%>
 <%@page import="com.plm.conn.queue.QueueHelper"%>
 <%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
 <%@page import="java.net.InetAddress"%>
 <%@page import="org.apache.activemq.command.MessageId"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
-<%
-
-
-QueueServiceFwd fwd = ApplicationContextProvider.getApplicationContext().getBean(QueueServiceFwd.class);
-QueueHelper obj = fwd.getHelper();
-
-try{
-out.print(obj.getAllQueueList().next());
-}catch(Exception e){
-	e.printStackTrace();
-}
-
-%>
 
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
