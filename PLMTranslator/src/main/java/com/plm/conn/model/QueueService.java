@@ -30,9 +30,26 @@ public class QueueService implements Serializable {
 	private EntityManager em;
 
 	
-	public void addQueue(Queue queue) {
-		logger.info(" adding..." + queue.getId());
+	public Queue addQueue(Queue queue) {		
+		logger.info(" adding..." + queue);
 		em.persist(queue);
+		em.refresh(queue);
+		return queue;
+	}
+		
+	public Completedjob addCompleted(Completedjob queue) {		
+		logger.info(" adding..." + queue);
+		em.merge(queue);		
+		em.refresh(queue);
+		return queue;
+		
+	}
+	
+	public Failedjob addFailed(Failedjob queue) {		
+		logger.info(" adding..." + queue);
+		em.merge(queue);
+		em.refresh(queue);
+		return queue;
 	}
 
 	

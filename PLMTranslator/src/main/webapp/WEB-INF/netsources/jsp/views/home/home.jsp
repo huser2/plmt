@@ -1,7 +1,7 @@
 
 <%@page import="com.plm.conn.model.Queue"%>
 <%@page import="com.plm.conn.model.QueueService"%>
-<%@page import="com.plm.conn.queue.QueueHelper"%>
+
 <%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
 <%@page import="java.net.InetAddress"%>
 <%@page import="org.apache.activemq.command.MessageId"%>

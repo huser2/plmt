@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.plm.conn.model.Completedjob;
 import com.plm.conn.model.Queue;
 import com.plm.conn.model.QueueService;
 
@@ -60,11 +61,19 @@ public class HomeController {
 
 		Queue queue = new Queue();
 		queue.setMsgidProd("1212121212");
-		queueSvc.addQueue(queue);
+		queue.setId("1039023");		
+		queue = queueSvc.addQueue(queue);
 		
-		logger.info(""+queueSvc.getAll().size());
+		logger.info("queue id >>>"+queue.getQueueId());
+
+		// completed Job
+		Completedjob completed = new Completedjob();
+		completed.setId(queue.getId());
+		completed.setQueueId(queue.getQueueId());
+		completed.setQueue(queue);
+		queueSvc.addCompleted(completed);
 		
-		
+		// logger.info(""+queueSvc.getAll().size());
 
 		return "home";
 	}
