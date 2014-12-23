@@ -148,9 +148,9 @@ public class QueueService implements Serializable {
 	 *
 	 * @return the all
 	 */
-	public List<Queue> getCompletedQueues() {
-		TypedQuery<Queue> query = em.createNamedQuery("Completedjob.findAll",
-				Queue.class);
+	public List<Completedjob> getCompletedQueues() {
+		TypedQuery<Completedjob> query = em.createNamedQuery("Completedjob.findAll",
+				Completedjob.class);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();
 	}
@@ -160,9 +160,9 @@ public class QueueService implements Serializable {
 	 *
 	 * @return the all
 	 */
-	public List<Queue> getFailedQueues() {
-		TypedQuery<Queue> query = em.createNamedQuery("Failedjob.findAll",
-				Queue.class);
+	public List<Failedjob> getFailedQueues() {
+		TypedQuery<Failedjob> query = em.createNamedQuery("Failedjob.findAll",
+				Failedjob.class);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();
 	}
