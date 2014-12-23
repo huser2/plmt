@@ -2,9 +2,7 @@ package com.plm.conn.hcontroller;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -62,11 +60,9 @@ public class HomeController {
 
 		// completed Job
 		Completedjob completed = new Completedjob();
-		completed.setCompletedId(1212121212);	
 		completed.setQueue(queue);
 		queueSvc.save(completed);
-		
-		logger.info(""+queueSvc.getQueues().size());
+				
 
 		return "home";
 	}

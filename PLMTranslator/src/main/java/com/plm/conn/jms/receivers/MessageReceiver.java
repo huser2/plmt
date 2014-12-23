@@ -56,23 +56,23 @@ public class MessageReceiver implements MessageListener, ExceptionListener {
 				queue_id = "" + System.currentTimeMillis();
 			}
 
-			
 			// save to main queue list
 			Queue queue = new Queue();
-			queue.setId(queue_id);		
-			queueSvc.addQueue(queue);
+			queue.setMsgId("1212121212");
+			queue = queueSvc.save(queue);
+
+			logger.info("queue id >>>" + queue.getQueueId());
 
 			// completed Job
 			Completedjob completed = new Completedjob();			
-			completed.setId(queue_id);
 			completed.setQueue(queue);
-			queueSvc.addCompleted(completed);
-
+			queueSvc.save(completed);
+			
+			
 			// failed Job
-			Failedjob failed = new Failedjob();
-			failed.setId(queue_id);
+			Failedjob failed = new Failedjob();			
 			failed.setQueue(queue);
-			queueSvc.addFailed(failed);
+			queueSvc.save(failed);
 
 		} catch (JMSException e) {
 			// TODO Auto-generated catch block

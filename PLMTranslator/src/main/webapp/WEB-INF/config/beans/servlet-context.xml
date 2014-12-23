@@ -128,7 +128,7 @@
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<beans:property name="databasePlatform"
 			value="org.hibernate.dialect.DerbyDialect" />
-		<beans:property name="showSql" value="true" />
+		<beans:property name="showSql" value="false" />
 		<beans:property name="generateDdl" value="false" />
 	</beans:bean>
 
