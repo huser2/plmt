@@ -1,8 +1,0 @@
-
-CREATE DATABASE activemq;
-
-CREATE USER 'activemq'@'localhost' IDENTIFIED BY 'activemq';
-CREATE USER 'activemq'@'%' IDENTIFIED BY 'activemq';
-
-GRANT ALL ON activemq.* TO 'activemq'@'localhost';
-GRANT ALL ON activemq.* TO 'activemq'@'%';

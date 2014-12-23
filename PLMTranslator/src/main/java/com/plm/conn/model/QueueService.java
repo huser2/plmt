@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package com.plm.conn.model;
 
 import java.io.Serializable;
@@ -14,47 +17,151 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class QueueService.
+ */
 @Repository
 @Transactional
 public class QueueService implements Serializable {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The Constant logger. */
 	private static final Logger logger = LoggerFactory
 			.getLogger(QueueService.class);
 
+	/** The em. */
 	@PersistenceContext
 	private EntityManager em;
 
-	
-	public Queue addQueue(Queue queue) {		
+	/**
+	 * Save.
+	 *
+	 * @param queue
+	 *            the queue
+	 * @return the queue
+	 */
+	public Queue save(Queue queue) {
 		logger.info(" adding..." + queue);
 		em.persist(queue);
 		em.refresh(queue);
 		return queue;
 	}
-		
-	public Completedjob addCompleted(Completedjob queue) {		
-		logger.info(" adding..." + queue);
-		em.merge(queue);		
-		em.refresh(queue);
-		return queue;
-		
-	}
-	
-	public Failedjob addFailed(Failedjob queue) {		
-		logger.info(" adding..." + queue);
-		em.merge(queue);
-		em.refresh(queue);
-		return queue;
+
+	/**
+	 * Save.
+	 *
+	 * @param completedjob
+	 *            the completedjob
+	 * @return the completedjob
+	 */
+	public Completedjob save(Completedjob completedjob) {
+		logger.info(" adding..." + completedjob);
+		Completedjob cjob = em.merge(completedjob);
+		em.refresh(cjob);
+		return cjob;
+
 	}
 
-	
-	public List<Queue> getAll() {
+	/**
+	 * Save.
+	 *
+	 * @param failedjob
+	 *            the failedjob
+	 * @return the failedjob
+	 */
+	public Failedjob save(Failedjob failedjob) {
+		logger.info(" adding..." + failedjob);
+		Failedjob fjob = em.merge(failedjob);
+		em.refresh(fjob);
+		return fjob;
+	}
+
+	/**
+	 * Removes the.
+	 *
+	 * @param queue
+	 *            the queue
+	 */
+	public void remove(Object queue) {
+		em.remove(queue);
+	}
+
+	/**
+	 * Gets the completed job by msg id.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the completed job by msg id
+	 */
+	public Completedjob getCompletedJobByMsgId(String id) {
+		Completedjob completedjob = em.find(Completedjob.class, id);
+		logger.info(" info..." + completedjob);
+		return completedjob;
+
+	}
+
+	/**
+	 * Gets the failed job by msg id.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the failed job by msg id
+	 */
+	public Failedjob getFailedJobByMsgId(String id) {
+		Failedjob failedjob = em.find(Failedjob.class, id);
+		logger.info(" info..." + failedjob);
+		return failedjob;
+
+	}
+
+	/**
+	 * Gets the queue by queue id.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the queue by queue id
+	 */
+	public Queue getQueueByQueueId(String id) {
+		Queue queue = em.find(Queue.class, id);
+		logger.info(" info..." + queue);
+		return queue;
+
+	}
+
+	/**
+	 * Gets the all.
+	 *
+	 * @return the all
+	 */
+	public List<Queue> getQueues() {
 		TypedQuery<Queue> query = em.createNamedQuery("Queue.findAll",
+				Queue.class);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
+	/**
+	 * Gets the all.
+	 *
+	 * @return the all
+	 */
+	public List<Queue> getCompletedQueues() {
+		TypedQuery<Queue> query = em.createNamedQuery("Completedjob.findAll",
+				Queue.class);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
+	/**
+	 * Gets the all.
+	 *
+	 * @return the all
+	 */
+	public List<Queue> getFailedQueues() {
+		TypedQuery<Queue> query = em.createNamedQuery("Failedjob.findAll",
 				Queue.class);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();

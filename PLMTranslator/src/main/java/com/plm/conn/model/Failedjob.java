@@ -2,6 +2,7 @@ package com.plm.conn.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,16 +17,19 @@ public class Failedjob implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="QUEUE_ID", unique=true, nullable=false)
-	private int queueId;
+	@Column(name="FAILED_ID", unique=true, nullable=false)
+	private int failedId;
 
 	@Column(length=250)
 	private String container;
 
+	@Column(name="CREATED_DATE")
+	private Timestamp createdDate;
+
 	private long expiration;
 
-	@Column(nullable=false, length=100)
-	private String id;
+	@Column(name="FAILED_DATE")
+	private Timestamp failedDate;
 
 	@Lob
 	private byte[] msg;
@@ -41,20 +45,20 @@ public class Failedjob implements Serializable {
 	@Column(length=250)
 	private String xid;
 
-	//bi-directional one-to-one association to Queue
-	@OneToOne
-	@JoinColumn(name="QUEUE_ID", nullable=false, insertable=false, updatable=false)
+	//bi-directional many-to-one association to Queue
+	@ManyToOne
+	@JoinColumn(name="QUEUE_ID", nullable=false)
 	private Queue queue;
 
 	public Failedjob() {
 	}
 
-	public int getQueueId() {
-		return this.queueId;
+	public int getFailedId() {
+		return this.failedId;
 	}
 
-	public void setQueueId(int queueId) {
-		this.queueId = queueId;
+	public void setFailedId(int failedId) {
+		this.failedId = failedId;
 	}
 
 	public String getContainer() {
@@ -65,6 +69,14 @@ public class Failedjob implements Serializable {
 		this.container = container;
 	}
 
+	public Timestamp getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public long getExpiration() {
 		return this.expiration;
 	}
@@ -73,12 +85,12 @@ public class Failedjob implements Serializable {
 		this.expiration = expiration;
 	}
 
-	public String getId() {
-		return this.id;
+	public Timestamp getFailedDate() {
+		return this.failedDate;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setFailedDate(Timestamp failedDate) {
+		this.failedDate = failedDate;
 	}
 
 	public byte[] getMsg() {

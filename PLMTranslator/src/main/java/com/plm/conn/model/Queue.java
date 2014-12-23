@@ -2,6 +2,8 @@ package com.plm.conn.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Set;
 
 
 /**
@@ -22,13 +24,16 @@ public class Queue implements Serializable {
 	@Column(length=250)
 	private String container;
 
-	private long expiration;
+	@Column(name="CREATED_DATE")
+	private Timestamp createdDate;
 
-	@Column(nullable=false, length=100)
-	private String id;
+	private long expiration;
 
 	@Lob
 	private byte[] msg;
+
+	@Column(name="MSG_ID", nullable=false, length=100)
+	private String msgId;
 
 	@Column(name="MSGID_PROD", length=250)
 	private String msgidProd;
@@ -38,16 +43,19 @@ public class Queue implements Serializable {
 
 	private long priority;
 
+	@Column(name="PROCESS_DATE")
+	private Timestamp processDate;
+
 	@Column(length=250)
 	private String xid;
 
-	//bi-directional one-to-one association to Completedjob
-	@OneToOne(mappedBy="queue")
-	private Completedjob completedjob;
+	//bi-directional many-to-one association to Completedjob
+	@OneToMany(mappedBy="queue")
+	private Set<Completedjob> completedjobs;
 
-	//bi-directional one-to-one association to Failedjob
-	@OneToOne(mappedBy="queue")
-	private Failedjob failedjob;
+	//bi-directional many-to-one association to Failedjob
+	@OneToMany(mappedBy="queue")
+	private Set<Failedjob> failedjobs;
 
 	public Queue() {
 	}
@@ -68,6 +76,14 @@ public class Queue implements Serializable {
 		this.container = container;
 	}
 
+	public Timestamp getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public long getExpiration() {
 		return this.expiration;
 	}
@@ -76,20 +92,20 @@ public class Queue implements Serializable {
 		this.expiration = expiration;
 	}
 
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public byte[] getMsg() {
 		return this.msg;
 	}
 
 	public void setMsg(byte[] msg) {
 		this.msg = msg;
+	}
+
+	public String getMsgId() {
+		return this.msgId;
+	}
+
+	public void setMsgId(String msgId) {
+		this.msgId = msgId;
 	}
 
 	public String getMsgidProd() {
@@ -116,6 +132,14 @@ public class Queue implements Serializable {
 		this.priority = priority;
 	}
 
+	public Timestamp getProcessDate() {
+		return this.processDate;
+	}
+
+	public void setProcessDate(Timestamp processDate) {
+		this.processDate = processDate;
+	}
+
 	public String getXid() {
 		return this.xid;
 	}
@@ -124,20 +148,48 @@ public class Queue implements Serializable {
 		this.xid = xid;
 	}
 
-	public Completedjob getCompletedjob() {
-		return this.completedjob;
+	public Set<Completedjob> getCompletedjobs() {
+		return this.completedjobs;
 	}
 
-	public void setCompletedjob(Completedjob completedjob) {
-		this.completedjob = completedjob;
+	public void setCompletedjobs(Set<Completedjob> completedjobs) {
+		this.completedjobs = completedjobs;
 	}
 
-	public Failedjob getFailedjob() {
-		return this.failedjob;
+	public Completedjob addCompletedjob(Completedjob completedjob) {
+		getCompletedjobs().add(completedjob);
+		completedjob.setQueue(this);
+
+		return completedjob;
 	}
 
-	public void setFailedjob(Failedjob failedjob) {
-		this.failedjob = failedjob;
+	public Completedjob removeCompletedjob(Completedjob completedjob) {
+		getCompletedjobs().remove(completedjob);
+		completedjob.setQueue(null);
+
+		return completedjob;
+	}
+
+	public Set<Failedjob> getFailedjobs() {
+		return this.failedjobs;
+	}
+
+	public void setFailedjobs(Set<Failedjob> failedjobs) {
+		this.failedjobs = failedjobs;
+	}
+
+	public Failedjob addFailedjob(Failedjob failedjob) {
+		getFailedjobs().add(failedjob);
+		failedjob.setQueue(this);
+
+		return failedjob;
+	}
+
+	public Failedjob removeFailedjob(Failedjob failedjob) {
+		getFailedjobs().remove(failedjob);
+		failedjob.setQueue(null);
+
+		return failedjob;
 	}
 
 }

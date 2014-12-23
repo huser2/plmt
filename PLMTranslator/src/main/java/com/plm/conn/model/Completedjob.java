@@ -2,6 +2,7 @@ package com.plm.conn.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 
 /**
@@ -16,16 +17,19 @@ public class Completedjob implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="QUEUE_ID", unique=true, nullable=false)
-	private int queueId;
+	@Column(name="COMPLETED_ID", unique=true, nullable=false)
+	private int completedId;
+
+	@Column(name="COMPLETED_DATE")
+	private Timestamp completedDate;
 
 	@Column(length=250)
 	private String container;
 
-	private long expiration;
+	@Column(name="CREATED_DATE")
+	private Timestamp createdDate;
 
-	@Column(nullable=false, length=100)
-	private String id;
+	private long expiration;
 
 	@Lob
 	private byte[] msg;
@@ -41,20 +45,28 @@ public class Completedjob implements Serializable {
 	@Column(length=250)
 	private String xid;
 
-	//bi-directional one-to-one association to Queue
-	@OneToOne
-	@JoinColumn(name="QUEUE_ID", nullable=false, insertable=false, updatable=false)
+	//bi-directional many-to-one association to Queue
+	@ManyToOne
+	@JoinColumn(name="QUEUE_ID", nullable=false)
 	private Queue queue;
 
 	public Completedjob() {
 	}
 
-	public int getQueueId() {
-		return this.queueId;
+	public int getCompletedId() {
+		return this.completedId;
 	}
 
-	public void setQueueId(int queueId) {
-		this.queueId = queueId;
+	public void setCompletedId(int completedId) {
+		this.completedId = completedId;
+	}
+
+	public Timestamp getCompletedDate() {
+		return this.completedDate;
+	}
+
+	public void setCompletedDate(Timestamp completedDate) {
+		this.completedDate = completedDate;
 	}
 
 	public String getContainer() {
@@ -65,20 +77,20 @@ public class Completedjob implements Serializable {
 		this.container = container;
 	}
 
+	public Timestamp getCreatedDate() {
+		return this.createdDate;
+	}
+
+	public void setCreatedDate(Timestamp createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public long getExpiration() {
 		return this.expiration;
 	}
 
 	public void setExpiration(long expiration) {
 		this.expiration = expiration;
-	}
-
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public byte[] getMsg() {

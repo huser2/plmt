@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="derby_server-1418979286150--1711400522" provider="generic" driver="derby_server" name="Derby - plmbridge" create-date="1418979524534" update-date="1419006550006" save-password="true" show-system-objects="true" read-only="false">
-		<connection host="localhost" port="1527" server="" database="plmbridge" url="jdbc:derby://localhost:1527/plmbridge;create=true" user="plmt" type="dev">
+	<data-source id="oracle_thin-1419302763081-486082180" provider="oracle" driver="oracle_thin" name="Oracle - wind91" create-date="1419302976021" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="192.168.4.54" port="1521" server="" database="wind91" url="jdbc:oracle:thin:@192.168.4.54:1521:wind91" user="aisinaw" password="Eg0VKU9CU3bk" type="dev">
+			<property name="@dbeaver-sid-service@" value="SID"/>
+			<property name="@dbeaver-connection-type@" value="BASIC"/>
+			<property name="@dbeaver-check-schema-content@" value="true"/>
+			<property name="@dbeaver-always-show-dba@" value="false"/>
 			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
 				<property name="socks-host" value=""/>
 				<property name="socks-port" value="1080"/>
 			</network-handler>
 			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
 				<property name="port" value="22"/>
-				<property name="keyPath" value=""/>
 				<property name="host" value=""/>
+				<property name="keyPath" value=""/>
+				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+		</connection>
+	</data-source>
+	<data-source id="derby_server-1419303705350-1505519497" provider="generic" driver="derby_server" name="Derby - plmbridge" create-date="1419303744084" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="localhost" port="1527" server="" database="plmbridge" url="jdbc:derby://localhost:1527/plmbridge;create=false" user="user" type="dev">
+			<network-handler type="PROXY" id="socks_proxy" enabled="false" user="" save-password="false">
+				<property name="socks-host" value=""/>
+				<property name="socks-port" value="1080"/>
+			</network-handler>
+			<network-handler type="TUNNEL" id="ssh_tunnel" enabled="false" user="" save-password="false">
+				<property name="port" value="22"/>
+				<property name="host" value=""/>
+				<property name="keyPath" value=""/>
 				<property name="authType" value="PASSWORD"/>
 			</network-handler>
 		</connection>
