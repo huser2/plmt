@@ -1,42 +1,28 @@
+<!DOCTYPE link PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<link href="resources/css/w2ui-1.4.2.css" rel="stylesheet"
+	type="text/css" />
+<script src="resources/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<link href="resources/css/fontello.css" rel="stylesheet" type="text/css" />
+<link href="resources/css/plmt.css" rel="stylesheet" type="text/css" />
 
-<%@page import="com.plm.conn.model.Queue"%>
-<%@page import="com.plm.conn.model.QueueService"%>
+<script src="resources/js/w2ui-1.4.2.min.js" type="text/javascript"></script>
+<script src="resources/js/plmt.js" type="text/javascript"></script>
 
-<%@page import="com.plm.conn.jms.ApplicationContextProvider"%>
-<%@page import="java.net.InetAddress"%>
-<%@page import="org.apache.activemq.command.MessageId"%>
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<body>
+	<div id="layout" style="width: 100%; height: 95%;"></div>
 
+	<script type="text/javascript">
+		$(function() {
 
-<tiles:insertDefinition name="defaultTemplate">
-	<tiles:putAttribute name="body">
+			//create layout
+			var layoutDiv = $('#layout');
+			createLayout(layoutDiv);
 
+			// then define the sidebar
+			createMenu();
 
+		});
+	</script>
 
-		<div class="body">
-		
-			<table border="0">
-				<tr>
-					<td>Server Host Name</td>
-					<td><b>${hostName}</b></td>
-				</tr>
-				<tr>
-					<td>Server IP Address</td>
-					<td><b>${ipAddress}</b></td>
-				</tr>
-				<tr>
-					<td>Listening for (TCP) connections at</td>
-					<td><b>${tcpBrokerURL}</b></td>
-				</tr>
-				<tr>
-					<td>Listening for (STOMP) connections at</td>
-					<td><b>${stompBrokerURL}</b></td>
-				</tr>
-				
-			</table>
-		</div>
-
-
-
-	</tiles:putAttribute>
-</tiles:insertDefinition>
+</body>
+</html>

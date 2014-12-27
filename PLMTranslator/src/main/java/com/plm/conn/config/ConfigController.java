@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plm.conn.beans.ActiveMQBrowser;
 import com.plm.conn.model.Completedjob;
@@ -75,6 +76,28 @@ public class ConfigController {
 		return "mappings";
 	}
 
+	@RequestMapping(value = "/completed.list", method = RequestMethod.GET)	
+	public @ResponseBody Model configCompleted(Locale locale, Model model) {
+		logger.info("return completed list", locale);
+		List compList = new ArrayList();
+		compList.add("Test");
+		compList.add("Test2");
+		
+		model.addAttribute("completedObjs",compList);
+		return model;
+	}
+
+	@RequestMapping(value = "/failed.list", method = RequestMethod.GET)
+	public @ResponseBody Model configFailed(Locale locale, Model model) {
+		logger.info("return failed list", locale);
+		List compList = new ArrayList();
+		compList.add("Test");
+		compList.add("Test2");
+		model.addAttribute("failedObjs",compList);
+		return model;
+	}
+
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -82,11 +105,11 @@ public class ConfigController {
 	public String configMessages(Locale locale, Model model) {
 		logger.info("Display Messages", locale);
 
-		List<Completedjob> completedList = queueSvc.getCompletedQueues();
-		List<Failedjob> failedList = queueSvc.getFailedQueues();
+		//List<Completedjob> completedList = queueSvc.getCompletedQueues();
+		//List<Failedjob> failedList = queueSvc.getFailedQueues();
 
-		model.addAttribute("completedList", completedList);
-		model.addAttribute("failedList", failedList);
+		//model.addAttribute("completedList", completedList);
+		//model.addAttribute("failedList", failedList);
 
 		return "messages";
 	}

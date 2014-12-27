@@ -12,12 +12,24 @@
 		<org.springframework-version>3.2.12.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
-		<tiles-version>3.0.5</tiles-version>
+
 		<derby-version>10.11.1.1</derby-version>
 		<hibernate-version>4.3.3.Final</hibernate-version>
 
 	</properties>
 	<dependencies>
+
+
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-lgpl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-lgpl</artifactId>
+			<version>1.9.12</version>
+		</dependency>
 
 		<!-- mysql connector -->
 
@@ -38,13 +50,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate-version}</version>
-		</dependency>
-		<!-- tiles configuration -->
-
-		<dependency>
-			<groupId>org.apache.tiles</groupId>
-			<artifactId>tiles-extras</artifactId>
-			<version>${tiles-version}</version>
 		</dependency>
 
 
@@ -288,17 +293,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>displaytag</groupId>
-			<artifactId>displaytag</artifactId>
-			<version>1.1.1</version>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20141113</version>
 		</dependency>
-
-		<dependency>
-			<groupId>displaytag</groupId>
-			<artifactId>displaytag-export-poi</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-
 
 
 		<dependency>

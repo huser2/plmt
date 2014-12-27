@@ -7,6 +7,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jetty.util.ajax.JSONObjectConvertor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plm.conn.model.Completedjob;
 import com.plm.conn.model.Queue;
@@ -55,16 +57,53 @@ public class HomeController {
 		Queue queue = new Queue();
 		queue.setMsgId("1212121212");
 		queue = queueSvc.save(queue);
-		
-		logger.info("queue id >>>"+queue.getQueueId());
+
+		logger.info("queue id >>>" + queue.getQueueId());
 
 		// completed Job
 		Completedjob completed = new Completedjob();
 		completed.setQueue(queue);
 		queueSvc.save(completed);
-				
 
 		return "home";
+	}
+
+	@RequestMapping(value = "/header" , method = RequestMethod.GET)
+	public String header(Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		return "header";
+	}
+	
+	@RequestMapping(value = "/overview" , method = RequestMethod.GET)
+	public  String menu(Locale locale, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+
+		InetAddress inet = null;
+		try {
+			inet = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("hostName", inet.getHostName());
+		model.addAttribute("ipAddress", inet.getHostAddress());
+		model.addAttribute("tcpBrokerURL", "tcp://" + inet.getHostAddress()
+				+ ":16161/");
+		model.addAttribute("stompBrokerURL", "stomp://" + inet.getHostAddress()
+				+ ":61613/");
+
+		Queue queue = new Queue();
+		queue.setMsgId("1212121212");
+		queue = queueSvc.save(queue);
+
+		logger.info("queue id >>>" + queue.getQueueId());
+
+		// completed Job
+		Completedjob completed = new Completedjob();
+		completed.setQueue(queue);
+		queueSvc.save(completed);
+
+		return "overview";
 	}
 
 }

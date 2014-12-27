@@ -94,14 +94,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<!-- Tiles configuration -->
-
-	<beans:bean id="tilesConfigurer"
-		class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-		<beans:property name="definitions"
-			value="/WEB-INF/config/beans/tiles-definitions.xml" />
-	</beans:bean>
-
+	
 
 
 	<!-- Derby configuration -->
