@@ -40,31 +40,6 @@ public class HomeController {
 	public String home(Locale locale, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		InetAddress inet = null;
-		try {
-			inet = InetAddress.getLocalHost();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		model.addAttribute("hostName", inet.getHostName());
-		model.addAttribute("ipAddress", inet.getHostAddress());
-		model.addAttribute("tcpBrokerURL", "tcp://" + inet.getHostAddress()
-				+ ":16161/");
-		model.addAttribute("stompBrokerURL", "stomp://" + inet.getHostAddress()
-				+ ":61613/");
-
-		Queue queue = new Queue();
-		queue.setMsgId("1212121212");
-		queue = queueSvc.save(queue);
-
-		logger.info("queue id >>>" + queue.getQueueId());
-
-		// completed Job
-		Completedjob completed = new Completedjob();
-		completed.setQueue(queue);
-		queueSvc.save(completed);
-
 		return "home";
 	}
 

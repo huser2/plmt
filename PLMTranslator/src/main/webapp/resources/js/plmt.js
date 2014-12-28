@@ -28,9 +28,23 @@
 	        panels: [
 	            { type: 'top', size: 50, resizable: false, content:'',title:'PLMBridge'},
 	            { type: 'left', size: 200, resizable: true,  content: '',title:'Navigator'},
-	            { type: 'main', resizable: true,content:''}
+	            { type: 'main', resizable: true,content:loadOverView()}
 	        ]
 	    });		
+	}
+	
+	function loadOverView(){		
+		$.ajax({
+		    url: 'overview',
+		        success: function(data){
+		        var msgtabs = w2ui['plmt_tabs'];
+		        if( typeof msgtabs !== 'undefined'){
+		          msgtabs.destroy();
+		         }
+		            w2ui['plmt_layout'].content('main',data);
+		        	}
+		   		 });	
+		
 	}
 	
 	function createMenu(menuDiv){
@@ -66,8 +80,6 @@
 		        if( typeof msgtabs !== 'undefined'){
 		          msgtabs.destroy();
 		         }
-		       
-		       // alert(data)
 		            w2ui['plmt_layout'].content('main',data);
 		        }
 		   		 });			

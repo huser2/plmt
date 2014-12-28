@@ -9,9 +9,12 @@ import javax.jms.JMSException;
 import org.apache.activemq.ActiveMQSession;
 import org.apache.activemq.broker.region.RegionBroker;
 import org.apache.activemq.command.ActiveMQDestination;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,25 +79,52 @@ public class ConfigController {
 		return "mappings";
 	}
 
-	@RequestMapping(value = "/completed.list", method = RequestMethod.GET)	
-	public @ResponseBody Model configCompleted(Locale locale, Model model) {
+	@RequestMapping(value = "/completed.list", method = RequestMethod.POST)	
+	public @ResponseBody String configCompleted(Locale locale, Model model) {
 		logger.info("return completed list", locale);
-		List compList = new ArrayList();
-		compList.add("Test");
-		compList.add("Test2");
-		
-		model.addAttribute("completedObjs",compList);
-		return model;
+		List<?> completed = queueSvc.getCompletedQueues();
+		JSONArray jsonRet = new JSONArray();
+		int i=0;
+		for (Object obj : completed) {
+			Completedjob completedjob= (Completedjob) obj;
+			completedjob.setQueue(null);
+			JSONObject json= new JSONObject(completedjob);
+			//json.get("")
+			json.put("recid", i);			
+			jsonRet.put(json);
+			i++;
+		}		
+		JSONObject ret  =  new JSONObject();
+		ret.put("status", "success");
+		ret.put("total", jsonRet.length());
+		ret.put("records", jsonRet);
+		logger.info("returm"+jsonRet.toString());
+		return ret.toString();
 	}
 
-	@RequestMapping(value = "/failed.list", method = RequestMethod.GET)
-	public @ResponseBody Model configFailed(Locale locale, Model model) {
-		logger.info("return failed list", locale);
-		List compList = new ArrayList();
-		compList.add("Test");
-		compList.add("Test2");
-		model.addAttribute("failedObjs",compList);
-		return model;
+	@RequestMapping(value = "/failed.list", method = RequestMethod.POST)
+	public @ResponseBody String configFailed(Locale locale, Model model) {
+		logger.info("return failed list", locale);	
+		
+		List<?> failed = queueSvc.getFailedQueues();
+		JSONArray jsonRet = new JSONArray();
+		int i=0;
+		for (Object obj : failed) {
+			Failedjob failedjob= (Failedjob) obj;
+			failedjob.setQueue(null);
+			JSONObject json= new JSONObject(failedjob);
+			//json.get("")
+			json.put("recid", i);			
+			jsonRet.put(json);
+			i++;
+		}		
+		JSONObject ret  =  new JSONObject();
+		ret.put("status", "success");
+		ret.put("total", jsonRet.length());
+		ret.put("records", jsonRet);
+		logger.info("returm"+jsonRet.toString());
+		return ret.toString();
+
 	}
 
 	
