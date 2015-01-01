@@ -36,19 +36,14 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request,
 			HttpServletResponse response) {
 
 		return "home";
 	}
 
-	@RequestMapping(value = "/header" , method = RequestMethod.GET)
-	public String header(Locale locale, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
-		return "header";
-	}
-	
+		
 	@RequestMapping(value = "/overview" , method = RequestMethod.GET)
 	public  String menu(Locale locale, Model model, HttpServletRequest request,
 			HttpServletResponse response) {

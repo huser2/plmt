@@ -1422,12 +1422,12 @@ button.btn-red.clicked {
 }
 .w2ui-grid .w2ui-grid-header {
   position: absolute;
-  border-bottom: 1px solid #99bbe8 !important;
+  border-bottom: 1px solid #bad0ef!important;
   height: 28px;
   overflow: hidden;
   color: #444444;
-  font-size: 13px;
-  text-align: center;
+  font-size: 12px;
+  text-align: left;
   padding: 7px;
   background-image: -webkit-linear-gradient(#dae6f3, #c2d5ed);
   background-image: -moz-linear-gradient(#dae6f3, #c2d5ed);

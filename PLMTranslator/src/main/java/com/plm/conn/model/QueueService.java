@@ -149,8 +149,8 @@ public class QueueService implements Serializable {
 	 * @return the all
 	 */
 	public List<Completedjob> getCompletedQueues() {
-		TypedQuery<Completedjob> query = em.createNamedQuery("Completedjob.findAll",
-				Completedjob.class);
+		TypedQuery<Completedjob> query = em.createNamedQuery(
+				"Completedjob.findAll", Completedjob.class);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();
 	}
@@ -163,6 +163,26 @@ public class QueueService implements Serializable {
 	public List<Failedjob> getFailedQueues() {
 		TypedQuery<Failedjob> query = em.createNamedQuery("Failedjob.findAll",
 				Failedjob.class);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
+	public void savePlmMapping(PlmMapping plmMapping) {
+		em.persist(plmMapping);
+	}
+
+	public void deletePlmMapping(PlmMapping plmMapping) {
+		em.remove(em.contains(plmMapping) ? plmMapping : em.merge(plmMapping));
+	}
+
+	public PlmMapping getPlmMapping(String plm) {
+		PlmMapping mapping = em.find(PlmMapping.class, plm);
+		return mapping;
+	}
+
+	public List<PlmMapping> getPlmMapping() {
+		TypedQuery<PlmMapping> query = em.createNamedQuery(
+				"PlmMapping.findAll", PlmMapping.class);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();
 	}

@@ -50,40 +50,40 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-spin5:before { content: '\e800'; } /* '' */
-.icon-plus-squared:before { content: '\e801'; } /* '' */
-.icon-plus-circled:before { content: '\e802'; } /* '' */
-.icon-cog-alt:before { content: '\e803'; } /* '' */
-.icon-angle-circled-right:before { content: '\e804'; } /* '' */
-.icon-angle-right:before { content: '\e805'; } /* '' */
-.icon-right-open:before { content: '\e806'; } /* '' */
-.icon-right-dir:before { content: '\e807'; } /* '' */
-.icon-angle-double-right:before { content: '\e808'; } /* '' */
-.icon-right-circled:before { content: '\e809'; } /* '' */
-.icon-right-big:before { content: '\e80a'; } /* '' */
-.icon-right:before { content: '\e80b'; } /* '' */
-.icon-trash:before { content: '\e80c'; } /* '' */
-.icon-trash-empty:before { content: '\e80d'; } /* '' */
-.icon-upload:before { content: '\e80e'; } /* '' */
-.icon-folder-open:before { content: '\e80f'; } /* '' */
-.icon-folder-open-empty:before { content: '\e810'; } /* '' */
-.icon-cog:before { content: '\e811'; } /* '' */
-.icon-ok:before { content: '\e812'; } /* '' */
-.icon-ok-circled:before { content: '\e813'; } /* '' */
-.icon-plus:before { content: '\e814'; } /* '' */
-.icon-align-left:before { content: '\e815'; } /* '' */
-.icon-align-justify:before { content: '\e816'; } /* '' */
-.icon-align-center:before { content: '\e817'; } /* '' */
-.icon-right-circle:before { content: '\e818'; } /* '' */
-.icon-right-dir-1:before { content: '\e819'; } /* '' */
-.icon-indent-left:before { content: '\e81a'; } /* '' */
-.icon-progress-6:before { content: '\e81b'; } /* '' */
-.icon-progress-4:before { content: '\e81c'; } /* '' */
-.icon-progress-2:before { content: '\e81d'; } /* '' */
-.icon-progress-1:before { content: '\e81e'; } /* '' */
-.icon-progress-0:before { content: '\e81f'; } /* '' */
-.icon-progress-3:before { content: '\e820'; } /* '' */
-.icon-progress-7:before { content: '\e821'; } /* '' */
-.icon-progress-5:before { content: '\e822'; } /* '' */
-.icon-th-list:before { content: '\e823'; } /* '' */
-.icon-cog-1:before { content: '\e824'; } /* '' */
+.icon-spin5:before { content: '\e800'; } /* 'î €' */
+.icon-plus-squared:before { content: '\e801'; } /* 'î �' */
+.icon-plus-circled:before { content: '\e802'; } /* 'î ‚' */
+.icon-cog-alt:before { content: '\e803'; } /* 'î ƒ' */
+.icon-angle-circled-right:before { content: '\e804'; } /* 'î „' */
+.icon-angle-right:before { content: '\e805'; } /* 'î …' */
+.icon-right-open:before { content: '\e806'; } /* 'î †' */
+.icon-right-dir:before { content: '\e807'; } /* 'î ‡' */
+.icon-angle-double-right:before { content: '\e808'; } /* 'î ˆ' */
+.icon-right-circled:before { content: '\e809'; } /* 'î ‰' */
+.icon-right-big:before { content: '\e80a'; } /* 'î Š' */
+.icon-right:before { content: '\e80b'; } /* 'î ‹' */
+.icon-trash:before { content: '\e80c'; } /* 'î Œ' */
+.icon-trash-empty:before { content: '\e80d'; } /* 'î �' */
+.icon-upload:before { content: '\e80e'; } /* 'î Ž' */
+.icon-folder-open:before { content: '\e80f'; } /* 'î �' */
+.icon-folder-open-empty:before { content: '\e810'; } /* 'î �' */
+.icon-cog:before { content: '\e811'; } /* 'î ‘' */
+.icon-ok:before { content: '\e812'; } /* 'î ’' */
+.icon-ok-circled:before { content: '\e813'; } /* 'î “' */
+.icon-plus:before { content: '\e814'; } /* 'î ”' */
+.icon-align-left:before { content: '\e815'; } /* 'î •' */
+.icon-align-justify:before { content: '\e816'; } /* 'î –' */
+.icon-align-center:before { content: '\e817'; } /* 'î —' */
+.icon-right-circle:before { content: '\e818'; } /* 'î ˜' */
+.icon-right-dir-1:before { content: '\e819'; } /* 'î ™' */
+.icon-indent-left:before { content: '\e81a'; } /* 'î š' */
+.icon-progress-6:before { content: '\e81b'; } /* 'î ›' */
+.icon-progress-4:before { content: '\e81c'; } /* 'î œ' */
+.icon-progress-2:before { content: '\e81d'; } /* 'î �' */
+.icon-progress-1:before { content: '\e81e'; } /* 'î ž' */
+.icon-progress-0:before { content: '\e81f'; } /* 'î Ÿ' */
+.icon-progress-3:before { content: '\e820'; } /* 'î  ' */
+.icon-progress-7:before { content: '\e821'; } /* 'î ¡' */
+.icon-progress-5:before { content: '\e822'; } /* 'î ¢' */
+.icon-th-list:before { content: '\e823'; } /* 'î £' */
+.icon-cog-1:before { content: '\e824'; } /* 'î ¤' */
