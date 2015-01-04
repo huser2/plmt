@@ -13,6 +13,7 @@
 		var gridID = $('#myGrid');
 		var completedUrl = 'config/completed.list';
 		var failedUrl = 'config/failed.list';
+		var gridName ='myGrid';
 
 		var completedHeader = 'List of Completed Queues';
 		var failedHeader = 'List of Failed Queues';
@@ -100,11 +101,11 @@
 					columns = failedColumns;
 				}
 
-				renderGrid(gridID, event, header, columns,searches,tbladdons,null);
+				renderGrid(gridID,gridName, event, header, columns,searches,tbladdons,null);
 			},
 			onRender : function(event) {
 				event.target = completedUrl;
-				renderGrid(gridID, event, completedHeader, completedColumns,searches,tbladdons,null);
+				renderGrid(gridID,gridName, event, completedHeader, completedColumns,searches,tbladdons,null);
 			}
 
 		});

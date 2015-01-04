@@ -187,4 +187,25 @@ public class QueueService implements Serializable {
 		return query.getResultList();
 	}
 
+	public void savePlmAttributeList(PlmAttributeList plmAttributeList) {
+		em.persist(plmAttributeList);
+	}
+
+	public List<PlmAttributeList> getPlmAttributeList() {
+		TypedQuery<PlmAttributeList> query = em.createNamedQuery(
+				"PlmAttributeList.findAll", PlmAttributeList.class);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
+	public List<PlmAttributeList> getPlmAttributeListbyPlmName(String plmName) {
+
+		TypedQuery<PlmAttributeList> query = em.createQuery(
+				"SELECT p FROM PlmAttributeList p WHERE p.plmName = :name",
+				PlmAttributeList.class);
+		query.setParameter("name", plmName);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
 }

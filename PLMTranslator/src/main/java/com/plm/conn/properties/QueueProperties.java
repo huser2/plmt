@@ -20,7 +20,7 @@ public class QueueProperties extends PropertyPlaceholderConfigurer {
 		// TODO Auto-generated method stub
 		super.loadProperties(arg0);
 	}
-
+    
 	@Override
 	public void setProperties(Properties properties) {
 		// TODO Auto-generated method stub

@@ -27,7 +27,7 @@ function createLayout(layoutDiv) {
 		name : 'plmt_layout',
 		panels : [ {
 			type : 'top',
-			size : 50,
+			size : 35,
 			resizable : false,
 			content : '',
 			title : 'PLMBridge'
@@ -40,7 +40,7 @@ function createLayout(layoutDiv) {
 		}, {
 			type : 'main',
 			resizable : true,
-			style:pstyle,
+			style : pstyle,
 			content : loadOverView()
 		} ]
 	});
@@ -81,7 +81,7 @@ function createMenu(menuDiv) {
 			img : 'icon-cog-alt',
 			expanded : true,
 			group : true,
-			nodes : [{
+			nodes : [ {
 				id : 'config/admin',
 				text : 'System Administration',
 				img : 'icon-angle-right'
@@ -89,7 +89,7 @@ function createMenu(menuDiv) {
 				id : 'config/queues',
 				text : 'Queue Status',
 				img : 'icon-angle-right'
-			}]
+			} ]
 		} ],
 		onClick : function(event) {
 			sideBarCallBack(event);
@@ -116,31 +116,29 @@ function sideBarCallBack(event) {
 	});
 }
 
+function renderGrid(gridObj, gridName, event, header, columns, searches, show,
+		toolbar) {
 
-function renderGrid(gridID, event,header,columns,searches,show,toolbar) {
-	
-	var grid = w2ui['myGrid'];
+	var grid = w2ui[gridName];
 	if (typeof grid !== 'undefined') {
 		grid.destroy();
 	}
 
-	gridID.w2grid({
-		name : 'myGrid',
+	gridObj.w2grid({
+		name : gridName,
 		header : header,
-		searches :searches,
-		show :show,
+		searches : searches,
+		show : show,
 		url : event.target,
 		columns : columns,
-		toolbar:toolbar
-		
-		
+		toolbar : toolbar
 	});
 
 }
 
 // manage attributes page
-function renderPage(gridId,event){
-	$(gridId).load( event.target, function() {
-		  console.log( "Load was performed page:."+event.target );
-		});
+function renderPage(gridId, event) {
+	$(gridId).load(event.target, function() {
+		console.log("Load was performed page:." + event.target);
+	});
 }

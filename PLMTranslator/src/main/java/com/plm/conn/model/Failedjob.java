@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @NamedQuery(name="Failedjob.findAll", query="SELECT f FROM Failedjob f")
 public class Failedjob implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+ 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="FAILED_ID", unique=true, nullable=false)

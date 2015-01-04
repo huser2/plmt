@@ -14,6 +14,8 @@
 		var connectUrl = 'config/connect';
 		var mapAttrsUrl = 'config/mapAttrs';
 		var manageAttrsUrl = 'config/manageAttrs';
+		var manageTypesUrl = 'config/manageTypes';
+		var gridName='myGrid';
 
 		var connectTblAddons = {
 			header : true,
@@ -139,7 +141,7 @@
 															.save(function(data) {
 
 																if (data.status == 'success') {
-																	var grid = w2ui['myGrid'];
+																	var grid = w2ui[gridName];
 																	grid
 																			.reload();
 																	//w2ui.foo
@@ -189,7 +191,7 @@
 				}
 
 				if (event.target == 'config/deleteConnection') {
-					var grid = w2ui['myGrid'];
+					var grid = w2ui[gridName];
 					var sel = grid.getSelection();
 					var delList = {};
 					for (var i = 0; i < sel.length; i++) {
@@ -244,21 +246,25 @@
 					active : connectUrl,
 					tabs : [ {
 						id : connectUrl,
-						caption : 'Manage Connections'
+						caption : 'Connections'
 					}, {
+						id : manageTypesUrl,
+						caption : 'Types'
+					},{
 						id : manageAttrsUrl,
-						caption : 'Manage Attributes'
+						caption : 'Attributes'
 					}, {
 						id : mapAttrsUrl,
 						caption : 'Map Attributes'
 					} ],
 					onClick : function(event) {
-						var grid = w2ui['myGrid'];
+						
+						var grid = w2ui[gridName];
 						if (typeof grid !== 'undefined') {
 							grid.destroy();
 						}
 						if (event.target == connectUrl) {
-							renderGrid(gridID, event, connectHeader,
+							renderGrid(gridID,gridName,event, connectHeader,
 									failedColumns, null, connectTblAddons,
 									toolbar);
 						}
@@ -267,10 +273,20 @@
 							renderPage(gridID,event);
 						}
 						
+						//map attributes
+						if(event.target==manageTypesUrl){
+							renderPage(gridID,event);
+						}
+						
+						//map attributes
+						if(event.target==mapAttrsUrl){
+							renderPage(gridID,event);
+						}
+						
 					},
 					onRender : function(event) {
 						event.target = connectUrl;
-						renderGrid(gridID, event, connectHeader, failedColumns,
+						renderGrid(gridID,gridName, event, connectHeader, failedColumns,
 								null, connectTblAddons, toolbar);
 
 					}
