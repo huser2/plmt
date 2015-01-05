@@ -191,6 +191,20 @@ public class QueueService implements Serializable {
 		em.persist(plmAttributeList);
 	}
 
+	public void savePlmTypeList(PlmTypeList plmTypeList) {
+		em.persist(plmTypeList);
+	}
+
+	public void deletePlmAttributeList(PlmAttributeList plmAttributeList) {
+		em.remove(em.contains(plmAttributeList) ? plmAttributeList : em
+				.merge(plmAttributeList));
+	}
+
+	public void deletePlmTypeList(PlmTypeList plmTypeList) {
+		em.remove(em.contains(plmTypeList) ? plmTypeList : em
+				.merge(plmTypeList));
+	}
+
 	public List<PlmAttributeList> getPlmAttributeList() {
 		TypedQuery<PlmAttributeList> query = em.createNamedQuery(
 				"PlmAttributeList.findAll", PlmAttributeList.class);
@@ -203,6 +217,15 @@ public class QueueService implements Serializable {
 		TypedQuery<PlmAttributeList> query = em.createQuery(
 				"SELECT p FROM PlmAttributeList p WHERE p.plmName = :name",
 				PlmAttributeList.class);
+		query.setParameter("name", plmName);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+
+	public List<PlmTypeList> getPlmObjectTypeListbyPlmName(String plmName) {
+		TypedQuery<PlmTypeList> query = em.createQuery(
+				"SELECT p FROM PlmTypeList p WHERE p.plmName = :name",
+				PlmTypeList.class);
 		query.setParameter("name", plmName);
 		logger.info(" info..." + query.getResultList());
 		return query.getResultList();

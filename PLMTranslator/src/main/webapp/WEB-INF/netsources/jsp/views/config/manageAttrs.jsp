@@ -36,11 +36,12 @@
 		editable:{type:'text'}
 	} ];
 
-	var tblAddons = {
-		header : true,
-		toolbar : true,
-		footer : true,
-		lineNumbers : true
+	var tblAddons = {		
+			header : true,
+			toolbar : true,
+			footer : true,
+			lineNumbers : true,
+			selectColumn : true,
 	};
 
 	var toolbar = {
@@ -67,12 +68,13 @@
             if (event.target == 'config/saveAttribute') {
             	var grid = w2ui[gridName];
             	   var changed = grid.getChanges();            	   
-            	   var changeList = {};
+            	   
             	   var list = $.makeArray();
             	   
             	   var obj = $('#plmNames_list').data('selected');
             	   var selected_plm = obj.text;
-					for (var i = 0; i < changed.length; i++) {					
+					for (var i = 0; i < changed.length; i++) {
+						var changeList = {};					
 						var row = changed[i];						
 						changeList['attributeId'] = row.attributeId;
 						changeList['attributeName'] = row.attributeId;
@@ -92,12 +94,24 @@
             if (event.target == 'config/deleteAttribute') {
             		var grid = w2ui[gridName];
 					var sel = grid.getSelection();
-					var delList = {};
-					for (var i = 0; i < sel.length; i++) {
-						var selected = grid.get(i);
-						delList[i] = selected.plm;
+					
+					var list =$.makeArray();
+					debugger;
+					for (var del = 0; del < sel.length; del++) {
+						var delList = {};
+						var row = grid.get(del);
+						delList['attributeId'] = row.attributeId;
+						delList['attributeName'] = row.attributeId;
+						delList['plmName'] = row.plmName;
+						delList['id'] = row.id;
+						list.push(delList);
 					}
-                    $.post(event.target, delList, function() {
+					
+					list  = JSON.stringify(list);
+					var postData = '{"attributes":'+list+'}';
+					console.log("object ...."+postData);
+					
+                    $.post(event.target, postData, function() {
 						w2alert('Deleted');
 						grid.reload();
 					});                

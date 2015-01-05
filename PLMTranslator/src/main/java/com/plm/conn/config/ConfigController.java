@@ -40,6 +40,7 @@ import com.plm.conn.model.Completedjob;
 import com.plm.conn.model.Failedjob;
 import com.plm.conn.model.PlmAttributeList;
 import com.plm.conn.model.PlmMapping;
+import com.plm.conn.model.PlmTypeList;
 import com.plm.conn.model.QueueService;
 
 @Controller
@@ -186,11 +187,12 @@ public class ConfigController {
 		return "mapAttrs";
 	}
 
-	@RequestMapping(value = { "/saveAttribute" }, method = RequestMethod.POST)
-	public @ResponseBody String configSaveAttribute(HttpServletRequest request,
-			ModelMap model, Locale locale) throws JMSException,
-			JsonParseException, JsonMappingException, IOException {
-		logger.info("Welcome saveAttribute! The client locale is {}.",
+	@RequestMapping(value = { "/saveObjectType" }, method = RequestMethod.POST)
+	public @ResponseBody String configSaveObjectType(
+			HttpServletRequest request, ModelMap model, Locale locale)
+			throws JMSException, JsonParseException, JsonMappingException,
+			IOException {
+		logger.info("Welcome saveObjectType! The client locale is {}.",
 				request.getParameterMap());
 
 		if (!request.getParameterMap().isEmpty()) {
@@ -203,16 +205,50 @@ public class ConfigController {
 
 			org.json.JSONObject jobj = new org.json.JSONObject(obj.toString());
 			ObjectMapper mapper = new ObjectMapper();
-			JSONArray arr = jobj.getJSONArray("attributes");
+			JSONArray arr = jobj.getJSONArray("types");
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject jsonObject = arr.getJSONObject(i);
-				PlmAttributeList listObj = mapper.readValue(
-						jsonObject.toString(), PlmAttributeList.class);
-				queueSvc.savePlmAttributeList(listObj);
+				PlmTypeList listObj = mapper.readValue(jsonObject.toString(),
+						PlmTypeList.class);
+				queueSvc.savePlmTypeList(listObj);
 			}
 		}
 
-		return "mapAttrs";
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+
+		return ret.toString();
+	}
+
+	@RequestMapping(value = { "/deleteObjectType" }, method = RequestMethod.POST)
+	public @ResponseBody String configDeleteObjectType(
+			HttpServletRequest request, ModelMap model, Locale locale)
+			throws JMSException, JsonParseException, JsonMappingException,
+			IOException {
+		logger.info("Welcome deleteObjectType! The client locale is {}.");
+
+		if (!request.getParameterMap().isEmpty()) {
+			Map<?, ?> postMap = request.getParameterMap();
+			Set<?> set = postMap.keySet();
+			Object obj = null;
+			for (Iterator<?> iterator = set.iterator(); iterator.hasNext();) {
+				obj = (Object) iterator.next();
+			}
+
+			org.json.JSONObject jobj = new org.json.JSONObject(obj.toString());
+			ObjectMapper mapper = new ObjectMapper();
+			JSONArray arr = jobj.getJSONArray("types");
+			for (int i = 0; i < arr.length(); i++) {
+				JSONObject jsonObject = arr.getJSONObject(i);
+				PlmTypeList listObj = mapper.readValue(jsonObject.toString(),
+						PlmTypeList.class);
+				queueSvc.deletePlmTypeList(listObj);
+			}
+		}
+
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+		return ret.toString();
 	}
 
 	/**
@@ -325,18 +361,17 @@ public class ConfigController {
 
 	}
 
-	@RequestMapping(value = "/plmattributes.list", method = RequestMethod.POST)	
-	public @ResponseBody String configPlmAttributesList(HttpServletRequest request,HttpServletResponse response) {
+	@RequestMapping(value = "/plmattributes.list", method = RequestMethod.POST)
+	public @ResponseBody String configPlmAttributesList(
+			HttpServletRequest request, HttpServletResponse response) {
 		logger.info("return plm Attributes list selected_plm :");
-		
-		
-		
+
 		JSONArray jsonRet = new JSONArray();
-		if(!request.getParameterMap().isEmpty()){
-			String[] str = (String[]) request.getParameterMap().get("selected_plm");
+		if (!request.getParameterMap().isEmpty()) {
+			String[] str = (String[]) request.getParameterMap().get(
+					"selected_plm");
 			String plmName = str[0];
-			System.out.println(" attr :"+plmName);
-			List<?> list = queueSvc.getPlmAttributeListbyPlmName(plmName);			
+			List<?> list = queueSvc.getPlmAttributeListbyPlmName(plmName);
 			int i = 0;
 			for (Object obj : list) {
 				PlmAttributeList attList = (PlmAttributeList) obj;
@@ -347,8 +382,7 @@ public class ConfigController {
 				i++;
 			}
 		}
-		
-		
+
 		JSONObject ret = new JSONObject();
 		ret.put("status", "success");
 		ret.put("total", jsonRet.length());
@@ -356,6 +390,100 @@ public class ConfigController {
 
 		return ret.toString();
 
+	}
+
+	@RequestMapping(value = "/plmtypes.list", method = RequestMethod.POST)
+	public @ResponseBody String configPlmTypesList(HttpServletRequest request,
+			HttpServletResponse response) {
+		logger.info("return plm types list selected_plm :");
+
+		JSONArray jsonRet = new JSONArray();
+		if (!request.getParameterMap().isEmpty()) {
+			String[] str = (String[]) request.getParameterMap().get(
+					"selected_plm");
+			String plmName = str[0];
+			List<?> list = queueSvc.getPlmObjectTypeListbyPlmName(plmName);
+			int i = 0;
+			for (Object obj : list) {
+				PlmTypeList attList = (PlmTypeList) obj;
+				JSONObject json = new JSONObject(attList);
+				// json.get("")
+				json.put("recid", i);
+				jsonRet.put(json);
+				i++;
+			}
+		}
+
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+		ret.put("total", jsonRet.length());
+		ret.put("records", jsonRet);
+
+		return ret.toString();
+
+	}
+
+	@RequestMapping(value = { "/saveAttribute" }, method = RequestMethod.POST)
+	public @ResponseBody String configSaveAttribute(HttpServletRequest request,
+			ModelMap model, Locale locale) throws JMSException,
+			JsonParseException, JsonMappingException, IOException {
+		logger.info("Welcome saveAttribute! The client locale is {}.",
+				request.getParameterMap());
+
+		if (!request.getParameterMap().isEmpty()) {
+			Map postMap = request.getParameterMap();
+			Set set = postMap.keySet();
+			Object obj = null;
+			for (Iterator iterator = set.iterator(); iterator.hasNext();) {
+				obj = (Object) iterator.next();
+			}
+
+			org.json.JSONObject jobj = new org.json.JSONObject(obj.toString());
+			ObjectMapper mapper = new ObjectMapper();
+			JSONArray arr = jobj.getJSONArray("attributes");
+			for (int i = 0; i < arr.length(); i++) {
+				JSONObject jsonObject = arr.getJSONObject(i);
+				PlmAttributeList listObj = mapper.readValue(
+						jsonObject.toString(), PlmAttributeList.class);
+				queueSvc.savePlmAttributeList(listObj);
+			}
+		}
+
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+
+		return ret.toString();
+	}
+
+	@RequestMapping(value = { "/deleteAttribute" }, method = RequestMethod.POST)
+	public @ResponseBody String configDeleteAttribute(
+			HttpServletRequest request, ModelMap model, Locale locale)
+			throws JMSException, JsonParseException, JsonMappingException,
+			IOException {
+		logger.info("Welcome deleteAttribute! The client locale is {}.");
+
+		if (!request.getParameterMap().isEmpty()) {
+			Map<?, ?> postMap = request.getParameterMap();
+			Set<?> set = postMap.keySet();
+			Object obj = null;
+			for (Iterator<?> iterator = set.iterator(); iterator.hasNext();) {
+				obj = (Object) iterator.next();
+			}
+
+			org.json.JSONObject jobj = new org.json.JSONObject(obj.toString());
+			ObjectMapper mapper = new ObjectMapper();
+			JSONArray arr = jobj.getJSONArray("attributes");
+			for (int i = 0; i < arr.length(); i++) {
+				JSONObject jsonObject = arr.getJSONObject(i);
+				PlmAttributeList listObj = mapper.readValue(
+						jsonObject.toString(), PlmAttributeList.class);
+				queueSvc.deletePlmAttributeList(listObj);
+			}
+		}
+
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+		return ret.toString();
 	}
 
 	/**
