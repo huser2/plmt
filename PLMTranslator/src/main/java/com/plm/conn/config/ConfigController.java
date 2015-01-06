@@ -159,6 +159,35 @@ public class ConfigController {
 				json.toString());
 		return json.toString();
 	}
+	
+	
+	@RequestMapping(value = { "/mappingPlm.list" }, method = RequestMethod.GET)
+	public @ResponseBody String configMappingPlmList(Locale locale, Model model)
+			throws JMSException {
+		logger.info("Welcome plm.list! The client locale is {}.", model);
+
+		JSONObject json = new JSONObject();
+		json.put("status", "success");
+		JSONArray jsonArr = new JSONArray();
+
+		JSONObject obj = null;
+		List<PlmMapping> mappings = queueSvc.getPlmMapping();
+		for (Iterator<PlmMapping> iterator = mappings.iterator(); iterator
+				.hasNext();) {
+			PlmMapping plmMapping = (PlmMapping) iterator.next();
+			obj = new JSONObject();
+			obj.put("id", plmMapping.getPlm());
+			obj.put("text", plmMapping.getPlm());
+			jsonArr.put(obj);
+			json.put("items", jsonArr);
+		}
+		
+		logger.info("Welcome mappingPlm.list! The client locale is {}.",
+				json.toString());
+		return json.toString();
+	}
+	
+
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
 	public String configAdmin(Locale locale, Model model) throws JMSException {
@@ -299,6 +328,7 @@ public class ConfigController {
 		ret.put("status", "success");
 		ret.put("total", jsonRet.length());
 		ret.put("records", jsonRet);
+
 
 		return ret.toString();
 	}

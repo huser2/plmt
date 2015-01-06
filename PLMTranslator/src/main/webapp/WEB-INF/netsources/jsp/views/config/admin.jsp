@@ -15,7 +15,7 @@
 		var mapAttrsUrl = 'config/mapAttrs';
 		var manageAttrsUrl = 'config/manageAttrs';
 		var manageTypesUrl = 'config/manageTypes';
-		var gridName='myGrid';
+		var gridName = 'myGrid';
 
 		var connectTblAddons = {
 			header : true,
@@ -209,89 +209,123 @@
 		};
 
 		var connectHeader = 'List of Connections';
-		failedColumns = [ {
-			field : 'wncHostname',
-			caption : 'Windchill Host Name',
-			size : '30%'
-		}, {
-			field : 'wncIpaddress',
-			caption : 'Windchill IP Address',
-			size : '40%'
-		}, {
-			field : 'wncStatus',
-			caption : 'Status',
-			size : '30%'
-		}, {
-			field : 'plm',
-			caption : 'PLM',
-			size : '30%'
-		}, {
-			field : 'plmHostname',
-			caption : 'Host Name',
-			size : '30%'
-		}, {
-			field : 'plmIpaddress',
-			caption : 'IP Address',
-			size : '40%'
-		}, {
-			field : 'plmStatus',
-			caption : 'Status',
-			size : '30%'
-		} ];
+		failedColumns = [
+				{
+					field : 'wncHostname',
+					caption : 'Windchill Host Name',
+					size : '30%'
+				},
+				{
+					field : 'wncIpaddress',
+					caption : 'Windchill IP Address',
+					size : '40%'
+				},
+				{
+					field : 'wncStatus',
+					caption : 'Status',
+					size : '30%',
+					render : function(record, index, column_index) {
+						var icon = "";
+						if (record.wncStatus == 'Active') {
+							icon = "icon-spin5";
+						} else {
+							icon = "icon-cross";
+						}
+						var html = '<div style="" title="'+record.wncStatus+'"> '
+								+ record.wncStatus
+								+ '<span class='+icon+'></span></div>';
+						return html;
+					}
+				},
+				{
+					field : 'plm',
+					caption : 'PLM',
+					size : '30%'
+				},
+				{
+					field : 'plmHostname',
+					caption : 'Host Name',
+					size : '30%'
+				},
+				{
+					field : 'plmIpaddress',
+					caption : 'IP Address',
+					size : '40%'
+				},
+				{
+					field : 'plmStatus',
+					caption : 'Status',
+					size : '30%',
+					render : function(record, index, column_index) {
+					
+					var icon = "";
+						if (record.plmStatus == 'Active') {
+							icon = "icon-spin5";
+						} else {
+							icon = "icon-cross";
+						}
+						var html = '<div style="" title="'+record.plmStatus+'"> '
+								+ record.plmStatus
+								+ '<span class='+icon+'></span></div>';
+						return html;					
+					}
+				} ];
 
 		//create tabs
-		$('#admin_tabs').w2tabs(
-				{
-					name : 'admin_tabs',
-					active : connectUrl,
-					tabs : [ {
-						id : connectUrl,
-						caption : 'Connections'
-					}, {
-						id : manageTypesUrl,
-						caption : 'Types'
-					},{
-						id : manageAttrsUrl,
-						caption : 'Attributes'
-					}, {
-						id : mapAttrsUrl,
-						caption : 'Map Attributes'
-					} ],
-					onClick : function(event) {
-						
-						var grid = w2ui[gridName];
-						if (typeof grid !== 'undefined') {
-							grid.destroy();
-						}
-						if (event.target == connectUrl) {
-							renderGrid(gridID,gridName,event, connectHeader,
-									failedColumns, null, connectTblAddons,
-									toolbar);
-						}
-						//manage attributes
-						if(event.target==manageAttrsUrl){
-							renderPage(gridID,event);
-						}
-						
-						//map attributes
-						if(event.target==manageTypesUrl){
-							renderPage(gridID,event);
-						}
-						
-						//map attributes
-						if(event.target==mapAttrsUrl){
-							renderPage(gridID,event);
-						}
-						
-					},
-					onRender : function(event) {
-						event.target = connectUrl;
-						renderGrid(gridID,gridName, event, connectHeader, failedColumns,
-								null, connectTblAddons, toolbar);
+		$('#admin_tabs')
+				.w2tabs(
+						{
+							name : 'admin_tabs',
+							active : connectUrl,
+							tabs : [ {
+								id : connectUrl,
+								caption : 'Connections'
+							}, {
+								id : manageTypesUrl,
+								caption : 'Types'
+							}, {
+								id : manageAttrsUrl,
+								caption : 'Attributes'
+							}, {
+								id : mapAttrsUrl,
+								caption : 'Map Attributes'
+							} ],
+							onClick : function(event) {
 
-					}
+								var grid = w2ui[gridName];
+								if (typeof grid !== 'undefined') {
+									grid.destroy();
+								}
+								if (event.target == connectUrl) {
+									renderGrid(gridID, gridName, event,
+											connectHeader, failedColumns, null,
+											connectTblAddons, toolbar);
+								}
+								//manage attributes
+								if (event.target == manageAttrsUrl) {
+									renderPage(gridID, event);
+								}
 
-				});
+								//map attributes
+								if (event.target == manageTypesUrl) {
+									renderPage(gridID, event);
+								}
+
+								//map attributes
+								if (event.target == mapAttrsUrl) {
+									renderPage(gridID, event);
+								}
+
+							},
+							onRender : function(event) {
+								event.target = connectUrl;
+								renderGrid(gridID, gridName, event,
+										connectHeader, failedColumns, null,
+										connectTblAddons, toolbar);
+
+							}
+
+						});
 
 	});
 </script>

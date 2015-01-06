@@ -136,6 +136,29 @@ function renderGrid(gridObj, gridName, event, header, columns, searches, show,
 
 }
 
+
+function renderGridWithGroupColumns(gridObj, gridName, event, header, columns, searches, show,
+		toolbar,groups) {
+
+	var grid = w2ui[gridName];
+	if (typeof grid !== 'undefined') {
+		grid.destroy();
+	}
+
+	gridObj.w2grid({
+		name : gridName,
+		header : header,
+		searches : searches,
+		show : show,
+		url : event.target,
+		columns : columns,
+		toolbar : toolbar,
+		columnGroups:groups
+	});
+
+}
+
+
 // manage attributes page
 function renderPage(gridId, event) {
 	$(gridId).load(event.target, function() {
