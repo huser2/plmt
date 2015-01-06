@@ -222,6 +222,17 @@ public class QueueService implements Serializable {
 		return query.getResultList();
 	}
 
+	public List<PlmAttributeMapping> getPlmAttributeMappingListbyPlmName(String plmName) {
+
+		TypedQuery<PlmAttributeMapping> query = em.createQuery(
+				"SELECT p FROM PlmAttributeMapping p WHERE p.id.plm1Name = ?1 AND p.id.plm2Name=?2",
+				PlmAttributeMapping.class);
+		query.setParameter(1, "Windchill");
+		query.setParameter(2, plmName);
+		logger.info(" info..." + query.getResultList());
+		return query.getResultList();
+	}
+	
 	public List<PlmTypeList> getPlmObjectTypeListbyPlmName(String plmName) {
 		TypedQuery<PlmTypeList> query = em.createQuery(
 				"SELECT p FROM PlmTypeList p WHERE p.plmName = :name",

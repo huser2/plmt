@@ -12,7 +12,7 @@
 	$(function() {
 		var gridID = $('#myGrid');
 		var connectUrl = 'config/connect';
-		var mapAttrsUrl = 'config/mapAttrs';
+		var mapAttrsUrl = 'config/mapAttributes';
 		var manageAttrsUrl = 'config/manageAttrs';
 		var manageTypesUrl = 'config/manageTypes';
 		var gridName = 'myGrid';

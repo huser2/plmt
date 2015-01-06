@@ -2,7 +2,6 @@ package com.plm.conn.config;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -13,10 +12,8 @@ import javax.jms.JMSException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.derby.catalog.GetProcedureColumns;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,16 +26,14 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plm.conn.model.Completedjob;
 import com.plm.conn.model.Failedjob;
 import com.plm.conn.model.PlmAttributeList;
+import com.plm.conn.model.PlmAttributeMapping;
 import com.plm.conn.model.PlmMapping;
 import com.plm.conn.model.PlmTypeList;
 import com.plm.conn.model.QueueService;
@@ -209,11 +204,11 @@ public class ConfigController {
 		return "manageTypes";
 	}
 
-	@RequestMapping(value = { "/mapAttrs" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/mapAttributes" }, method = RequestMethod.GET)
 	public String configMapAttrs(Locale locale, Model model)
 			throws JMSException {
 		logger.info("Welcome manageAttrs! The client locale is {}.", model);
-		return "mapAttrs";
+		return "mapAttributes";
 	}
 
 	@RequestMapping(value = { "/saveObjectType" }, method = RequestMethod.POST)
@@ -452,6 +447,37 @@ public class ConfigController {
 		return ret.toString();
 
 	}
+	
+	@RequestMapping(value = "/attributemapping.list", method = RequestMethod.POST)
+	public @ResponseBody String configPlmAttributeMappingList(
+			HttpServletRequest request, HttpServletResponse response) {
+		logger.info("return plm Attributes list selected_plm :");
+
+		JSONArray jsonRet = new JSONArray();
+		if (!request.getParameterMap().isEmpty()) {
+			String[] str = (String[]) request.getParameterMap().get(
+					"selected_plm");
+			String plmName = str[0];
+			List<?> list = queueSvc.getPlmAttributeMappingListbyPlmName(plmName);
+			int i = 0;
+			for (Object obj : list) {
+				PlmAttributeMapping attList = (PlmAttributeMapping) obj;
+				JSONObject json = new JSONObject(attList);
+				// json.get("")
+				json.put("recid", i);
+				jsonRet.put(json);
+				i++;
+			}
+		}
+
+		JSONObject ret = new JSONObject();
+		ret.put("status", "success");
+		ret.put("total", jsonRet.length());
+		ret.put("records", jsonRet);
+
+		return ret.toString();
+
+	}
 
 	@RequestMapping(value = { "/saveAttribute" }, method = RequestMethod.POST)
 	public @ResponseBody String configSaveAttribute(HttpServletRequest request,
@@ -484,6 +510,9 @@ public class ConfigController {
 
 		return ret.toString();
 	}
+	
+	
+	
 
 	@RequestMapping(value = { "/deleteAttribute" }, method = RequestMethod.POST)
 	public @ResponseBody String configDeleteAttribute(

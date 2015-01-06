@@ -26,21 +26,27 @@ var selected_plm = obj.text;
         
         var toolbar = {
 		items : [ {
-			id : 'config/addObjectType',
+			id : 'config/createNewMapping',
 			type : 'button',
-			caption : 'Add New Type',
+			caption : 'Add New Mapping',
 			icon : 'icon-cog-1'
 		}, {
-			id : 'config/deleteObjectType',
+			id : 'config/deleteNewMapping',
 			type : 'button',
 			caption : 'Remove',
 			icon : 'w2ui-icon-cross'
 		},{
-			id : 'config/saveObjectType',
+			id : 'config/saveNewMapping',
 			type : 'button',
 			caption : 'Save',
 			icon : 'w2ui-icon-check'
-		} ]};
+		} ],
+		onClick : function(event) {
+			if (event.target == 'config/createNewMapping') {
+                    w2ui[gridName].add({ recid: w2ui[gridName].records.length + 1 });                
+              }
+            }
+        };
         var header ='Mapping Table';
         var show = { header : true,
 			toolbar : true,
@@ -53,16 +59,18 @@ var selected_plm = obj.text;
             { caption: selected_plm+' Information', span: 2 }
         ];
         
+        
+        
         var columns = [ 
-            { field: 'plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true },
-            { field: 'plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true },            
-            { field: 'plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true },
-            { field: 'plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true },
+            { field: 'id.plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,editable:{type:'list'}},
+            { field: 'id.plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},            
+            { field: 'id.plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},
+            { field: 'id.plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},
         ];        
        
    var event = this;  
    event.target = 'config/attributemapping.list?selected_plm='+selected_plm;   
-   renderGridWithGroupColumns(gridObj, gridName, event, header, columns, searches, show, toolbar, columnGroups);
+              renderGridWithGroupColumns(gridObj, gridName, event, header, columns, searches, show, toolbar, columnGroups);
    }
 
 $(function () {
