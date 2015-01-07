@@ -36,6 +36,10 @@ public class QueueService implements Serializable {
 	@PersistenceContext
 	private EntityManager em;
 
+	
+	public QueueService(){
+		
+	}
 	/**
 	 * Save.
 	 *
