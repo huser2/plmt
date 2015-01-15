@@ -2,6 +2,25 @@
  * 
  */
 
+/* Get values for the parsed URL */
+
+jQuery.extend({
+	getValues : function(url) {
+		var result = null;
+		$.ajax({
+			url : url,
+			type : 'get',
+			dataType : 'html',
+			async : false,
+			cache : false,
+			success : function(data) {
+				result = data;
+			}
+		});
+		return result;
+	}
+});
+
 function processRequest(request) {
 	var xmlhttp;
 	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -136,9 +155,8 @@ function renderGrid(gridObj, gridName, event, header, columns, searches, show,
 
 }
 
-
-function renderGridWithGroupColumns(gridObj, gridName, event, header, columns, searches, show,
-		toolbar,groups) {
+function renderGridWithGroupColumns(gridObj, gridName, event, header, columns,
+		searches, show, toolbar, groups) {
 
 	var grid = w2ui[gridName];
 	if (typeof grid !== 'undefined') {
@@ -153,11 +171,10 @@ function renderGridWithGroupColumns(gridObj, gridName, event, header, columns, s
 		url : event.target,
 		columns : columns,
 		toolbar : toolbar,
-		columnGroups:groups
+		columnGroups : groups
 	});
 
 }
-
 
 // manage attributes page
 function renderPage(gridId, event) {
