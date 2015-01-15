@@ -21,6 +21,8 @@ function renderMappingTable(){
 var obj = $('#plmNames_list').data('selected');
 var selected_plm = obj.text;
 
+var plmTypes = $.getValues('plmtype.mappingtable.list?selected_plm='+selected_plm);
+
        var gridObj = $('#mappingGrid');       
        var  searches=null;
         
