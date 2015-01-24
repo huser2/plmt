@@ -86,7 +86,7 @@ public class ConfigController {
 				msg = "Cannot add same PLM application '" + plmMapping.getPlm()
 						+ "' mapping again!.";
 			}
-
+			e.printStackTrace();
 		}
 
 		JSONObject json = new JSONObject();
@@ -154,8 +154,7 @@ public class ConfigController {
 				json.toString());
 		return json.toString();
 	}
-	
-	
+
 	@RequestMapping(value = { "/mappingPlm.list" }, method = RequestMethod.GET)
 	public @ResponseBody String configMappingPlmList(Locale locale, Model model)
 			throws JMSException {
@@ -176,13 +175,11 @@ public class ConfigController {
 			jsonArr.put(obj);
 			json.put("items", jsonArr);
 		}
-		
+
 		logger.info("Welcome mappingPlm.list! The client locale is {}.",
 				json.toString());
 		return json.toString();
 	}
-	
-
 
 	@RequestMapping(value = { "/admin" }, method = RequestMethod.GET)
 	public String configAdmin(Locale locale, Model model) throws JMSException {
@@ -234,7 +231,9 @@ public class ConfigController {
 				JSONObject jsonObject = arr.getJSONObject(i);
 				PlmTypeList listObj = mapper.readValue(jsonObject.toString(),
 						PlmTypeList.class);
-				queueSvc.savePlmTypeList(listObj);
+				if (listObj.getTypeId() != "" && listObj.getTypeName() != "") {
+					queueSvc.savePlmTypeList(listObj);
+				}
 			}
 		}
 
@@ -266,6 +265,7 @@ public class ConfigController {
 				JSONObject jsonObject = arr.getJSONObject(i);
 				PlmTypeList listObj = mapper.readValue(jsonObject.toString(),
 						PlmTypeList.class);
+
 				queueSvc.deletePlmTypeList(listObj);
 			}
 		}
@@ -323,7 +323,6 @@ public class ConfigController {
 		ret.put("status", "success");
 		ret.put("total", jsonRet.length());
 		ret.put("records", jsonRet);
-
 
 		return ret.toString();
 	}
@@ -447,8 +446,6 @@ public class ConfigController {
 		return ret.toString();
 
 	}
-	
-	
 
 	@RequestMapping(value = { "/saveAttribute" }, method = RequestMethod.POST)
 	public @ResponseBody String configSaveAttribute(HttpServletRequest request,
@@ -481,9 +478,6 @@ public class ConfigController {
 
 		return ret.toString();
 	}
-	
-	
-	
 
 	@RequestMapping(value = { "/deleteAttribute" }, method = RequestMethod.POST)
 	public @ResponseBody String configDeleteAttribute(
