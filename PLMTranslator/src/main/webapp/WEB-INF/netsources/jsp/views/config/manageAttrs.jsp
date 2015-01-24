@@ -1,7 +1,3 @@
-
-<%@page import="com.plm.conn.model.QueryMappingService"%>
-<%@page import="com.plm.conn.model.QueueMappingHelper"%>
-<%@page import="com.plm.conn.model.QueueService"%>
 <style>
 .w2ui-field input {
 	width: 200px;
@@ -14,8 +10,6 @@
 
 
 <%
-QueryMappingService qs = QueueMappingHelper.service;
-out.print("object: "+qs);
 %>
 <div class="w2ui-field w2ui-span3">
 	<label>List:</label>
