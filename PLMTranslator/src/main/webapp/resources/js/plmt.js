@@ -10,7 +10,7 @@ jQuery.extend({
 		$.ajax({
 			url : url,
 			type : 'get',
-			dataType : 'html',
+			dataType : 'json',
 			async : false,
 			cache : false,
 			success : function(data) {

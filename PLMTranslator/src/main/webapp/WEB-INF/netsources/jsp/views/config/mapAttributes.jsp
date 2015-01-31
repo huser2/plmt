@@ -1,4 +1,6 @@
 
+<%@page import="org.json.JSONArray"%>
+<%@page import="org.json.JSONObject"%>
 <%@page import="java.util.List"%>
 <%@page import="com.plm.conn.model.QueueService"%>
 <div class="w2ui-field w2ui-span3">
@@ -11,7 +13,15 @@
 </div>
 
 <div id="mappingGrid" style="width: 100%; height: 400px;"></div>
+<%
+JSONArray json = new JSONArray();
 
+json.put(0, "obj1");
+json.put(1, "obj2");
+json.put(2, "obj3");
+
+
+%>
 <script type="text/javascript">
 
 var  gridName = 'mappingGrid'; 
@@ -21,7 +31,8 @@ function renderMappingTable(){
 var obj = $('#plmNames_list').data('selected');
 var selected_plm = obj.text;
 
-var plmTypes = $.getValues('plmtype.mappingtable.list?selected_plm='+selected_plm);
+var plmTypes = $.getValues('config/plmtype.mappingtable.list?selected_plm='+selected_plm);
+debugger;
 
        var gridObj = $('#mappingGrid');       
        var  searches=null;
@@ -61,13 +72,37 @@ var plmTypes = $.getValues('plmtype.mappingtable.list?selected_plm='+selected_pl
             { caption: selected_plm+' Information', span: 2 }
         ];
         
-        
+       //  plmTypes = ['teset','uyikkl','olklll'];
         
         var columns = [ 
-            { field: 'id.plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,editable:{type:'list'}},
-            { field: 'id.plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},            
-            { field: 'id.plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},
-            { field: 'id.plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, editable:{type:'list'}},
+            { field: 'id.plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            	editable: { type: 'list', items: plmTypes,showAll: true},
+                render: function (record, index, col_index) {
+                    var html = this.getCellValue(index, col_index);
+                    return html.text || '';
+                }
+            },
+            { field: 'id.plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
+            	editable: { type: 'list', items: plmTypes,showAll: true},
+                render: function (record, index, col_index) {
+                    var html = this.getCellValue(index, col_index);
+                    return html.text || '';
+                }
+			},            
+            { field: 'id.plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            	editable: { type: 'list', items: plmTypes,showAll: true},
+                render: function (record, index, col_index) {
+                    var html = this.getCellValue(index, col_index);
+                    return html.text || '';
+                }
+            },
+            { field: 'id.plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
+            	editable: { type: 'list', items: plmTypes,showAll: true},
+                render: function (record, index, col_index) {
+                    var html = this.getCellValue(index, col_index);
+                    return html.text || '';
+                }
+            },
         ];        
        
    var event = this;  

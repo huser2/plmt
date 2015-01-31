@@ -433,6 +433,7 @@ public class ConfigController {
 				JSONObject json = new JSONObject(attList);
 				// json.get("")
 				json.put("recid", i);
+				json.put("editable", "false");
 				jsonRet.put(json);
 				i++;
 			}
