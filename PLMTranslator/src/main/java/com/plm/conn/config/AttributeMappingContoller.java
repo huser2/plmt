@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.plm.conn.model.PlmAttributeList;
 import com.plm.conn.model.PlmAttributeMapping;
 import com.plm.conn.model.PlmTypeList;
 import com.plm.conn.model.QueueService;
@@ -81,7 +82,29 @@ public class AttributeMappingContoller {
 			}
 		}
 
-		System.out.println(" hiiiiiiiiiiii" + json.toString());
+		return json.toString();
+
+	}
+	
+	@RequestMapping(value = "/plmattribute.mappingtable.list", method = RequestMethod.GET)
+	public @ResponseBody String configPlmAttrMappingList(HttpServletRequest request,
+			HttpServletResponse response) {
+		logger.info("return plmtype.mappingtable.list :");
+
+		JSONArray json = new JSONArray();
+		if (!request.getParameterMap().isEmpty()) {
+			String[] str = (String[]) request.getParameterMap().get(
+					"selected_plm");
+			String plmName = str[0];
+			List<?> list = queueSvc.getPlmAttributeListbyPlmName(plmName);
+
+			int i = 0;
+			for (Object obj : list) {
+				PlmAttributeList attList = (PlmAttributeList) obj;
+				json.put(i, attList.getAttributeId());
+				i++;
+			}
+		}
 
 		return json.toString();
 

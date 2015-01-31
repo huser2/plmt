@@ -13,15 +13,6 @@
 </div>
 
 <div id="mappingGrid" style="width: 100%; height: 400px;"></div>
-<%
-JSONArray json = new JSONArray();
-
-json.put(0, "obj1");
-json.put(1, "obj2");
-json.put(2, "obj3");
-
-
-%>
 <script type="text/javascript">
 
 var  gridName = 'mappingGrid'; 
@@ -32,7 +23,11 @@ var obj = $('#plmNames_list').data('selected');
 var selected_plm = obj.text;
 
 var plmTypes = $.getValues('config/plmtype.mappingtable.list?selected_plm='+selected_plm);
-debugger;
+var plmAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_plm='+selected_plm);
+
+var wncTypes = $.getValues('config/plmtype.mappingtable.list?selected_plm=Windchill');
+var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_plm=Windchill');
+
 
        var gridObj = $('#mappingGrid');       
        var  searches=null;
@@ -83,21 +78,21 @@ debugger;
                 }
             },
             { field: 'id.plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
-            	editable: { type: 'list', items: plmTypes,showAll: true},
+            	editable: { type: 'list', items: plmAttributes,showAll: true},
                 render: function (record, index, col_index) {
                     var html = this.getCellValue(index, col_index);
                     return html.text || '';
                 }
 			},            
             { field: 'id.plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
-            	editable: { type: 'list', items: plmTypes,showAll: true},
+            	editable: { type: 'list', items: wncTypes,showAll: true},
                 render: function (record, index, col_index) {
                     var html = this.getCellValue(index, col_index);
                     return html.text || '';
                 }
             },
             { field: 'id.plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
-            	editable: { type: 'list', items: plmTypes,showAll: true},
+            	editable: { type: 'list', items: wncAttributes,showAll: true},
                 render: function (record, index, col_index) {
                     var html = this.getCellValue(index, col_index);
                     return html.text || '';
