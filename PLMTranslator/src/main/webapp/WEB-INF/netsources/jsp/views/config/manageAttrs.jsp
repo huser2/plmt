@@ -98,7 +98,7 @@
 					var sel = grid.getSelection();
 					
 					var list =$.makeArray();
-					debugger;
+					
 					for (var del = 0; del < sel.length; del++) {
 						var delList = {};
 						var row = grid.get(del);

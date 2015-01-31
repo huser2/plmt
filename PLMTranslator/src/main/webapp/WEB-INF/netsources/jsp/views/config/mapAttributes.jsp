@@ -53,6 +53,72 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 			if (event.target == 'config/createNewMapping') {
                     w2ui[gridName].add({ recid: w2ui[gridName].records.length + 1 });                
               }
+			
+			 if (event.target == 'config/saveNewMapping') {
+	            	var grid = w2ui[gridName];
+	            	   var changed = grid.getChanges();            	   
+	            	   
+	            	   var list = $.makeArray();
+	            	   
+	            	   var obj = $('#plmNames_list').data('selected');
+	            	   var selected_plm = obj.text;
+						for (var i = 0; i < changed.length; i++) {
+							var changeList = {};					
+							var row = changed[i];	
+							
+							debugger;
+							Object.keys(row).forEach(function(key) {
+								//var robj = row[key];
+						        console.log(key+'........'+row[key]);
+						    },row);
+							
+							$.each(row, function(key, value){
+							   // console.log(key + ": " + row[key] +":"+value);
+							});
+							
+							//changeList['id.plm1TypeId'] = row.id.plm1TypeId;
+							//changeList['id.plm1AttributeId'] = row.id.plm1AttributeId;
+							//changeList['id.plm2TypeId'] = row.id.plm2TypeId;
+							//changeList['id.plm2AttributeId'] = row.id.plm2AttributeId;
+							//changeList['plmName'] = selected_plm;
+							list.push(changeList);						
+						}
+						
+						list  = JSON.stringify(list);
+						var postData = '{"attributes":'+list+'}';
+						console.log("object ...."+postData);
+						
+	                   $.post(event.target, postData, function() {
+							w2alert('Saved');
+							grid.reload();
+						});                
+	            }
+	            if (event.target == 'config/deleteNewMapping') {
+	            		var grid = w2ui[gridName];
+						var sel = grid.getSelection();
+						
+						var list =$.makeArray();
+						debugger;
+						for (var del = 0; del < sel.length; del++) {
+							var delList = {};
+							var row = grid.get(del);
+							delList['attributeId'] = row.attributeId;
+							delList['attributeName'] = row.attributeId;
+							delList['plmName'] = row.plmName;
+							delList['id'] = row.id;
+							list.push(delList);
+						}
+						
+						list  = JSON.stringify(list);
+						var postData = '{"attributes":'+list+'}';
+						console.log("object ...."+postData);
+						
+	                    $.post(event.target, postData, function() {
+							w2alert('Deleted');
+							grid.reload();
+						});                
+	            }
+	            
             }
         };
         var header ='Mapping Table';
