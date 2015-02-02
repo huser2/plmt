@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.plm.conn.model.PlmAttributeList;
 import com.plm.conn.model.PlmAttributeMapping;
+import com.plm.conn.model.PlmAttributeMappingPK;
 import com.plm.conn.model.PlmTypeList;
 import com.plm.conn.model.QueueService;
 
@@ -67,7 +68,7 @@ public class AttributeMappingContoller {
 		ret.put("status", "success");
 		ret.put("total", jsonRet.length());
 		ret.put("records", jsonRet);
-
+System.out.println("ma-----------------------------------------"+jsonRet.toString());
 		return ret.toString();
 
 	}
@@ -119,38 +120,7 @@ public class AttributeMappingContoller {
 		return json.toString();
 
 	}
-
-	@RequestMapping(value = "/plmattribute.list", method = RequestMethod.GET)
-	public @ResponseBody String configPlmAttributeList(
-			HttpServletRequest request, HttpServletResponse response) {
-		logger.info("return plmattribute :");
-
-		JSONArray jsonRet = new JSONArray();
-		if (!request.getParameterMap().isEmpty()) {
-			String[] str = (String[]) request.getParameterMap().get(
-					"selected_plm");
-			String plmName = str[0];
-			List<?> list = queueSvc
-					.getPlmAttributeMappingListbyPlmName(plmName);
-			int i = 0;
-			for (Object obj : list) {
-				PlmAttributeMapping attList = (PlmAttributeMapping) obj;
-				JSONObject json = new JSONObject(attList);
-				// json.get("")
-				json.put("recid", i);
-				jsonRet.put(json);
-				i++;
-			}
-		}
-
-		JSONObject ret = new JSONObject();
-		ret.put("status", "success");
-		ret.put("total", jsonRet.length());
-		ret.put("records", jsonRet);
-
-		return ret.toString();
-
-	}
+	
 	
 	@RequestMapping(value = { "/saveNewMapping" }, method = RequestMethod.POST)
 	public @ResponseBody String configSaveAttributeMapping(HttpServletRequest request,
@@ -172,9 +142,16 @@ public class AttributeMappingContoller {
 			JSONArray arr = jobj.getJSONArray("attributes");
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject jsonObject = arr.getJSONObject(i);
-				PlmAttributeList listObj = mapper.readValue(
-						jsonObject.toString(), PlmAttributeList.class);
-				queueSvc.savePlmAttributeList(listObj);
+				PlmAttributeMappingPK listObj = mapper.readValue(
+						jsonObject.toString(), PlmAttributeMappingPK.class);
+				PlmAttributeMapping mapping  = new PlmAttributeMapping();
+				mapping.setPlm1AttributeName(listObj.getPlm1AttributeId());
+				mapping.setPlm1TypeName(listObj.getPlm1TypeId());
+				
+				mapping.setPlm2AttributeName(listObj.getPlm2AttributeId());
+				mapping.setPlm2TypeName(listObj.getPlm2TypeId());
+				
+				queueSvc.savePlmAttributeMappingList(mapping);
 			}
 		}
 

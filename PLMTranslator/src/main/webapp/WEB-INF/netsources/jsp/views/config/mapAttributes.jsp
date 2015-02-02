@@ -19,6 +19,7 @@ var  gridName = 'mappingGrid';
 
 function renderMappingTable(){ 
 
+	debugger;
 var obj = $('#plmNames_list').data('selected');
 var selected_plm = obj.text;
 
@@ -57,35 +58,26 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 			 if (event.target == 'config/saveNewMapping') {
 	            	var grid = w2ui[gridName];
 	            	   var changed = grid.getChanges();            	   
-	            	   
-	            	   var list = $.makeArray();
-	            	   
+	          
+	            	   var changeList = $.makeArray();	
 	            	   var obj = $('#plmNames_list').data('selected');
 	            	   var selected_plm = obj.text;
-						for (var i = 0; i < changed.length; i++) {
-							var changeList = {};					
+						for (var i = 0; i < changed.length; i++) {											
 							var row = changed[i];	
-							
-							debugger;
+							var ret = {};
 							Object.keys(row).forEach(function(key) {
-								//var robj = row[key];
-						        console.log(key+'........'+row[key]);
+								if(row[key].text !=='undefined'){
+									ret[key] = row[key].text;
+									ret['plmName'] = selected_plm;
+								}								
 						    },row);
-							
-							$.each(row, function(key, value){
-							   // console.log(key + ": " + row[key] +":"+value);
-							});
-							
-							//changeList['id.plm1TypeId'] = row.id.plm1TypeId;
-							//changeList['id.plm1AttributeId'] = row.id.plm1AttributeId;
-							//changeList['id.plm2TypeId'] = row.id.plm2TypeId;
-							//changeList['id.plm2AttributeId'] = row.id.plm2AttributeId;
-							//changeList['plmName'] = selected_plm;
-							list.push(changeList);						
+							ret['id']=i;
+							changeList.push(ret);
 						}
 						
-						list  = JSON.stringify(list);
-						var postData = '{"attributes":'+list+'}';
+						debugger;
+						changeList  = JSON.stringify(changeList);
+						var postData = '{"attributes":'+changeList+'}';
 						console.log("object ...."+postData);
 						
 	                   $.post(event.target, postData, function() {
@@ -95,24 +87,28 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 	            }
 	            if (event.target == 'config/deleteNewMapping') {
 	            		var grid = w2ui[gridName];
-						var sel = grid.getSelection();
-						
-						var list =$.makeArray();
-						debugger;
-						for (var del = 0; del < sel.length; del++) {
-							var delList = {};
-							var row = grid.get(del);
-							delList['attributeId'] = row.attributeId;
-							delList['attributeName'] = row.attributeId;
-							delList['plmName'] = row.plmName;
-							delList['id'] = row.id;
-							list.push(delList);
+	            	   var changed = grid.getChanges();            	   
+	          
+	            	   var changeList = $.makeArray();	
+	            	   var obj = $('#plmNames_list').data('selected');
+	            	   var selected_plm = obj.text;
+						for (var i = 0; i < changed.length; i++) {											
+							var row = changed[i];	
+							var ret = {};
+							Object.keys(row).forEach(function(key) {
+								if(row[key].text !=='undefined'){
+									ret[key] = row[key].text;
+									ret['plmName'] = selected_plm;									
+								}								
+						    },row);
+							ret['id']=i;
+							changeList.push(ret);
 						}
 						
-						list  = JSON.stringify(list);
-						var postData = '{"attributes":'+list+'}';
+						debugger;
+						changeList  = JSON.stringify(changeList);
+						var postData = '{"attributes":'+changeList+'}';
 						console.log("object ...."+postData);
-						
 	                    $.post(event.target, postData, function() {
 							w2alert('Deleted');
 							grid.reload();
@@ -136,32 +132,36 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
        //  plmTypes = ['teset','uyikkl','olklll'];
         
         var columns = [ 
-            { field: 'id.plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            { field: 'plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: plmTypes,showAll: true},
-                render: function (record, index, col_index) {
+                render: function (record, index, col_index) {                	
                     var html = this.getCellValue(index, col_index);
-                    return html.text || '';
+                    var text = (typeof html ==='object')? html.text:html;
+                    return text;
                 }
             },
-            { field: 'id.plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
+            { field: 'plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
             	editable: { type: 'list', items: plmAttributes,showAll: true},
-                render: function (record, index, col_index) {
+                render: function (record, index, col_index) {                   	
                     var html = this.getCellValue(index, col_index);
-                    return html.text || '';
+                    var text = (typeof html ==='object')? html.text:html;
+                    return text;
                 }
 			},            
-            { field: 'id.plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            { field: 'plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: wncTypes,showAll: true},
-                render: function (record, index, col_index) {
+                render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);
-                    return html.text || '';
+                    var text = (typeof html ==='object')? html.text:html;
+                    return text;
                 }
             },
-            { field: 'id.plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
+            { field: 'plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: wncAttributes,showAll: true},
-                render: function (record, index, col_index) {
+                render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);
-                    return html.text || '';
+                    var text = (typeof html ==='object')? html.text:html;
+                    return text;
                 }
             },
         ];        

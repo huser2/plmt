@@ -194,6 +194,10 @@ public class QueueService implements Serializable {
 	public void savePlmAttributeList(PlmAttributeList plmAttributeList) {
 		em.persist(plmAttributeList);
 	}
+	
+	public void savePlmAttributeMappingList(PlmAttributeMapping plmAttributeMapping) {
+		em.persist(plmAttributeMapping);
+	}
 
 	public void savePlmTypeList(PlmTypeList plmTypeList) {
 		em.persist(plmTypeList);
