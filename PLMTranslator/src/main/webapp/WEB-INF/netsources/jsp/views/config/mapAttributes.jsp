@@ -68,7 +68,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 							Object.keys(row).forEach(function(key) {
 								if(row[key].text !=='undefined'){
 									ret[key] = row[key].text;
-									ret['plmName'] = selected_plm;
+									//ret['plmName'] = selected_plm;
 								}								
 						    },row);
 							ret['id']=i;
@@ -98,10 +98,10 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 							Object.keys(row).forEach(function(key) {
 								if(row[key].text !=='undefined'){
 									ret[key] = row[key].text;
-									ret['plmName'] = selected_plm;									
+									//ret['plmName'] = selected_plm;									
 								}								
 						    },row);
-							ret['id']=i;
+							//ret['id']=i;
 							changeList.push(ret);
 						}
 						
@@ -132,15 +132,16 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
        //  plmTypes = ['teset','uyikkl','olklll'];
         
         var columns = [ 
-            { field: 'plm1TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            { field: 'plm1TypeName', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: plmTypes,showAll: true},
-                render: function (record, index, col_index) {                	
+                render: function (record, index, col_index) {  
+                	debugger;
                     var html = this.getCellValue(index, col_index);
                     var text = (typeof html ==='object')? html.text:html;
                     return text;
                 }
             },
-            { field: 'plm1AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
+            { field: 'plm1AttributeName', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
             	editable: { type: 'list', items: plmAttributes,showAll: true},
                 render: function (record, index, col_index) {                   	
                     var html = this.getCellValue(index, col_index);
@@ -148,7 +149,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
                     return text;
                 }
 			},            
-            { field: 'plm2TypeId', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
+            { field: 'plm2TypeName', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: wncTypes,showAll: true},
                 render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);
@@ -156,7 +157,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
                     return text;
                 }
             },
-            { field: 'plm2AttributeId', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
+            { field: 'plm2AttributeName', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
             	editable: { type: 'list', items: wncAttributes,showAll: true},
                 render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);

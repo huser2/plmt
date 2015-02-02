@@ -142,16 +142,10 @@ System.out.println("ma-----------------------------------------"+jsonRet.toStrin
 			JSONArray arr = jobj.getJSONArray("attributes");
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject jsonObject = arr.getJSONObject(i);
-				PlmAttributeMappingPK listObj = mapper.readValue(
-						jsonObject.toString(), PlmAttributeMappingPK.class);
-				PlmAttributeMapping mapping  = new PlmAttributeMapping();
-				mapping.setPlm1AttributeName(listObj.getPlm1AttributeId());
-				mapping.setPlm1TypeName(listObj.getPlm1TypeId());
+				PlmAttributeMapping listObj = mapper.readValue(
+						jsonObject.toString(), PlmAttributeMapping.class);				
 				
-				mapping.setPlm2AttributeName(listObj.getPlm2AttributeId());
-				mapping.setPlm2TypeName(listObj.getPlm2TypeId());
-				
-				queueSvc.savePlmAttributeMappingList(mapping);
+				queueSvc.savePlmAttributeMappingList(listObj);
 			}
 		}
 
