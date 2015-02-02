@@ -65,10 +65,13 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 						for (var i = 0; i < changed.length; i++) {											
 							var row = changed[i];	
 							var ret = {};
+							var idret={};
 							Object.keys(row).forEach(function(key) {
 								if(row[key].text !=='undefined'){
 									ret[key] = row[key].text;
-									//ret['plmName'] = selected_plm;
+									if(key==='plm1TypeName'){
+										idret['plm1TypeN']
+									}
 								}								
 						    },row);
 							ret['id']=i;
@@ -95,13 +98,15 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 						for (var i = 0; i < changed.length; i++) {											
 							var row = changed[i];	
 							var ret = {};
+							var idret ={};
 							Object.keys(row).forEach(function(key) {
 								if(row[key].text !=='undefined'){
 									ret[key] = row[key].text;
-									//ret['plmName'] = selected_plm;									
+																		
 								}								
 						    },row);
-							//ret['id']=i;
+							
+							ret['id']=i;
 							changeList.push(ret);
 						}
 						

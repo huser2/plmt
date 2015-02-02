@@ -61,6 +61,8 @@ public class AttributeMappingContoller {
 				json.put("recid", i);
 				jsonRet.put(json);
 				i++;
+				
+				System.out.println(" json >>>>>>"+json.toString());
 			}
 		}
 
