@@ -208,6 +208,11 @@ public class QueueService implements Serializable {
 				.merge(plmAttributeList));
 	}
 
+	public void deletePlmAttributeMapping(PlmAttributeMapping plmAttributeMapping) {
+		em.remove(em.contains(plmAttributeMapping) ? plmAttributeMapping : em
+				.merge(plmAttributeMapping));
+	}
+	
 	public void deletePlmTypeList(PlmTypeList plmTypeList) {
 		em.remove(em.contains(plmTypeList) ? plmTypeList : em
 				.merge(plmTypeList));

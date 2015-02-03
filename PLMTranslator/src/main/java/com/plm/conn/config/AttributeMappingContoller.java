@@ -57,12 +57,10 @@ public class AttributeMappingContoller {
 			for (Object obj : list) {
 				PlmAttributeMapping attList = (PlmAttributeMapping) obj;
 				JSONObject json = new JSONObject(attList);
-				// json.get("")
+				
 				json.put("recid", i);
 				jsonRet.put(json);
 				i++;
-				
-				System.out.println(" json >>>>>>"+json.toString());
 			}
 		}
 
@@ -70,7 +68,7 @@ public class AttributeMappingContoller {
 		ret.put("status", "success");
 		ret.put("total", jsonRet.length());
 		ret.put("records", jsonRet);
-System.out.println("ma-----------------------------------------"+jsonRet.toString());
+
 		return ret.toString();
 
 	}
@@ -177,9 +175,10 @@ System.out.println("ma-----------------------------------------"+jsonRet.toStrin
 			JSONArray arr = jobj.getJSONArray("attributes");
 			for (int i = 0; i < arr.length(); i++) {
 				JSONObject jsonObject = arr.getJSONObject(i);
-				PlmAttributeList listObj = mapper.readValue(
-						jsonObject.toString(), PlmAttributeList.class);
-				queueSvc.deletePlmAttributeList(listObj);
+				PlmAttributeMapping listObj = mapper.readValue(
+						jsonObject.toString(), PlmAttributeMapping.class);
+				System.out.println(" love >>>>>:"+listObj);
+				queueSvc.deletePlmAttributeMapping(listObj);
 			}
 		}
 

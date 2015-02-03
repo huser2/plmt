@@ -99,7 +99,7 @@
 					debugger;
 					for (var del = 0; del < sel.length; del++) {
 						var delList = {};
-						var row = grid.get(del);
+						var row = grid.get(sel[del]);
 						delList['typeId'] = row.typeId;
 						delList['typeName'] = row.typeName;
 						delList['plmName'] = row.plmName;

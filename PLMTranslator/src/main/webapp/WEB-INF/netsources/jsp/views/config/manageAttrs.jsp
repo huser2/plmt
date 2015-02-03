@@ -101,7 +101,7 @@
 					
 					for (var del = 0; del < sel.length; del++) {
 						var delList = {};
-						var row = grid.get(del);
+						var row = grid.get(sel[del]);
 						delList['attributeId'] = row.attributeId;
 						delList['attributeName'] = row.attributeId;
 						delList['plmName'] = row.plmName;

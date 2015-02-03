@@ -19,7 +19,7 @@ var  gridName = 'mappingGrid';
 
 function renderMappingTable(){ 
 
-	debugger;
+	
 var obj = $('#plmNames_list').data('selected');
 var selected_plm = obj.text;
 
@@ -70,15 +70,27 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 								if(row[key].text !=='undefined'){
 									ret[key] = row[key].text;
 									if(key==='plm1TypeName'){
-										idret['plm1TypeN']
+										idret['plm1TypeId'] = row[key].text;
 									}
+									if(key==='plm2TypeName'){
+										idret['plm2TypeId'] = row[key].text;
+									}
+									if(key==='plm1AttributeName'){
+										idret['plm1AttributeId'] = row[key].text;
+									}
+									if(key==='plm2AttributeName'){
+										idret['plm2AttributeId'] = row[key].text;
+									}
+									
+									idret['plm1Name'] = 'Windchill';
+									idret['plm2Name'] = selected_plm;
 								}								
 						    },row);
-							ret['id']=i;
+							ret['id']=idret;
 							changeList.push(ret);
 						}
 						
-						debugger;
+						
 						changeList  = JSON.stringify(changeList);
 						var postData = '{"attributes":'+changeList+'}';
 						console.log("object ...."+postData);
@@ -90,27 +102,40 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
 	            }
 	            if (event.target == 'config/deleteNewMapping') {
 	            		var grid = w2ui[gridName];
-	            	   var changed = grid.getChanges();            	   
-	          
+	            	   var changed = grid.getSelection();            	   
+	            	   debugger;
 	            	   var changeList = $.makeArray();	
 	            	   var obj = $('#plmNames_list').data('selected');
 	            	   var selected_plm = obj.text;
-						for (var i = 0; i < changed.length; i++) {											
-							var row = changed[i];	
+	            	   for (var i = 0; i < changed.length; i++) {											
+							var row = grid.get(changed[i]);	
 							var ret = {};
-							var idret ={};
+							var idret={};
 							Object.keys(row).forEach(function(key) {
 								if(row[key].text !=='undefined'){
-									ret[key] = row[key].text;
-																		
+									ret[key] = row[key];
+									if(key==='plm1TypeName'){
+										idret['plm1TypeId'] = row[key];
+									}
+									if(key==='plm2TypeName'){
+										idret['plm2TypeId'] = row[key];
+									}
+									if(key==='plm1AttributeName'){
+										idret['plm1AttributeId'] = row[key];
+									}
+									if(key==='plm2AttributeName'){
+										idret['plm2AttributeId'] = row[key];
+									}
+									
+									idret['plm1Name'] = 'Windchill';
+									idret['plm2Name'] = selected_plm;
 								}								
 						    },row);
-							
-							ret['id']=i;
-							changeList.push(ret);
+							ret['id']=idret;
+							delete row.recid;
+							changeList.push(row);
 						}
-						
-						debugger;
+	            	   
 						changeList  = JSON.stringify(changeList);
 						var postData = '{"attributes":'+changeList+'}';
 						console.log("object ...."+postData);
@@ -138,7 +163,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
         
         var columns = [ 
             { field: 'plm1TypeName', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
-            	editable: { type: 'list', items: plmTypes,showAll: true},
+            	editable: { type: 'list', items:wncTypes,showAll: true},
                 render: function (record, index, col_index) {  
                 	debugger;
                     var html = this.getCellValue(index, col_index);
@@ -147,7 +172,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
                 }
             },
             { field: 'plm1AttributeName', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true, 
-            	editable: { type: 'list', items: plmAttributes,showAll: true},
+            	editable: { type: 'list', items:wncAttributes,showAll: true},
                 render: function (record, index, col_index) {                   	
                     var html = this.getCellValue(index, col_index);
                     var text = (typeof html ==='object')? html.text:html;
@@ -155,7 +180,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
                 }
 			},            
             { field: 'plm2TypeName', caption: 'Object Type', size: '25%', sortable: true, resizable: true,
-            	editable: { type: 'list', items: wncTypes,showAll: true},
+            	editable: { type: 'list', items: plmTypes,showAll: true},
                 render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);
                     var text = (typeof html ==='object')? html.text:html;
@@ -163,7 +188,7 @@ var wncAttributes = $.getValues('config/plmattribute.mappingtable.list?selected_
                 }
             },
             { field: 'plm2AttributeName', caption: 'Attribute ID', size: '25%', sortable: true, resizable: true,
-            	editable: { type: 'list', items: wncAttributes,showAll: true},
+            	editable: { type: 'list', items:plmAttributes,showAll: true},
                 render: function (record, index, col_index) {               	
                     var html = this.getCellValue(index, col_index);
                     var text = (typeof html ==='object')? html.text:html;
